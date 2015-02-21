@@ -5,7 +5,7 @@ components](http://vuejs.org/guide/application.html#Single_File_Components).
 
 ## Installation
 
-### Install with (Vundle)[]
+### Install with [Vundle][]
 
 Add this line to your vimrc:
 
