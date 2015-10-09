@@ -3,27 +3,18 @@
 Vim syntax highlighting for [Vue
 components](http://vuejs.org/guide/application.html#Single_File_Components).
 
+This was initially forked from
+[darthmall/vim-vue](https://github.com/darthmall/vim-vue). I already have an
+implementation for this but found his code much cleaner. That's why I created a
+new version instead of a PR.
+
 ## Installation
 
-### Install with [Vundle][]
+### Install with [Vundle](https://github.com/VundleVim/Vundle.vim)
 
-Add this line to your vimrc:
+`Plugin 'posva/vim-vue'`
 
-`Plugin 'darthmall/vim-vue'`
+## Contributing
 
-Then reload your vim configuration and run `PluginInstall`:
-
-```vim
-:source ~/.vimrc
-:PluginInstall
-```
-
-### Manual Installation
-
-```bash
-$ git clone https://github.com/darthmall/vim-vue.git
-$ cp vim-vue/ftdetect/vue.vim ~/.vim/ftdetect/
-$ cp vim-vue/syntax/vue.vim ~/.vim/syntax
-```
-
-[Vundle]: https://github.com/gmarik/Vundle.vim
+If your language is not getting highlighted open an issue or a PR with the fix.
+You only need to add some lines to the `syntax/vue.vim` file.
