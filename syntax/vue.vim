@@ -31,4 +31,8 @@ syntax include @stylus syntax/stylus.vim
 unlet b:current_syntax
 syntax region stylus keepend start=/<style lang="[^"]*stylus[^"]*"\( \+scoped\)\?>/ end="</style>" contains=@stylus fold
 
+syntax include @sass syntax/sass.vim
+unlet b:current_syntax
+syntax region sass keepend start=/<style\( \+scoped\)\? lang="sass"\( \+scoped\)\?>/ end="</style>" contains=@sass fold
+
 let b:current_syntax = "vue"
