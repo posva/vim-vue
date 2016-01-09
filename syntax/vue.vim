@@ -35,4 +35,8 @@ syntax include @sass syntax/sass.vim
 unlet b:current_syntax
 syntax region sass keepend start=/<style\( \+scoped\)\? lang="sass"\( \+scoped\)\?>/ end="</style>" contains=@sass fold
 
+syntax include @less syntax/less.vim
+unlet b:current_syntax
+syntax region less keepend matchgroup=PreProc start=/<style\%( \+scoped\)\? lang="less"\%( \+scoped\)\?>/ end="</style>" contains=@less fold
+
 let b:current_syntax = "vue"
