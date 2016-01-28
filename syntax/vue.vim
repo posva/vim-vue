@@ -63,7 +63,7 @@ endif
 if s:syntaxes.sass
   syntax include @sass syntax/sass.vim
   unlet b:current_syntax
-  syntax region sass keepend start=/<style\( \+scoped\)\? lang="sass"\( \+scoped\)\?>/ end="</style>" contains=@sass fold
+  syntax region sass keepend start=/<style\( \+scoped\)\? lang="[^"]*sass[^"]*"\( \+scoped\)\?>/ end="</style>" contains=@sass fold
 endif
 
 if s:syntaxes.less
