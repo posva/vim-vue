@@ -31,7 +31,7 @@ endif
 
 syntax include @HTML syntax/html.vim
 unlet b:current_syntax
-syntax region template keepend start=/<template>/ end="</template>" contains=@HTML fold
+syntax region template keepend start=/^<template>/ end=/^<\/template>/ contains=@HTML fold
 
 if s:syntaxes.jade
   syntax include @JADE syntax/jade.vim
