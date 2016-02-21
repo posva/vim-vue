@@ -37,6 +37,7 @@ if s:syntaxes.pug
   syntax include @PUG syntax/pug.vim
   unlet b:current_syntax
   syntax region pug keepend start=/<template lang="[^"]*pug[^"]*">/ end="</template>" contains=@PUG fold
+  syntax region pug keepend start=/<template lang="[^"]*jade[^"]*">/ end="</template>" contains=@PUG fold
 endif
 
 syntax include @JS syntax/javascript.vim
