@@ -25,7 +25,7 @@ if !exists("s:syntaxes")
     return syntaxes
   endfunction
 
-  let s:syntaxes = s:search_syntaxes('jade', 'coffee', 'stylus', 'sass', 'less')
+  let s:syntaxes = s:search_syntaxes('pug', 'coffee', 'stylus', 'sass', 'less')
 endif
 
 
@@ -33,10 +33,10 @@ syntax include @HTML syntax/html.vim
 unlet b:current_syntax
 syntax region template keepend start=/^<template>/ end=/^<\/template>/ contains=@HTML fold
 
-if s:syntaxes.jade
-  syntax include @JADE syntax/jade.vim
+if s:syntaxes.pug
+  syntax include @PUG syntax/pug.vim
   unlet b:current_syntax
-  syntax region jade keepend start=/<template lang="[^"]*jade[^"]*">/ end="</template>" contains=@JADE fold
+  syntax region pug keepend start=/<template lang="[^"]*pug[^"]*">/ end="</template>" contains=@PUG fold
 endif
 
 syntax include @JS syntax/javascript.vim
