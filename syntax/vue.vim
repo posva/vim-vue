@@ -42,7 +42,7 @@ endif
 
 syntax include @JS syntax/javascript.vim
 unlet b:current_syntax
-syntax region javascript keepend start=/<script\s*\(type="text\/babel"\)\?>/ end="</script>" contains=@JS,htmlScriptTag fold
+syntax region javascript keepend start=/<script\s*\(type="text\/babel"\)\?>/ end="</script>" contains=@JS fold
 
 if s:syntaxes.coffee
   syntax include @COFFEE syntax/coffee.vim
