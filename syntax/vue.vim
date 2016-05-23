@@ -31,7 +31,7 @@ endif
 
 syntax include @HTML syntax/html.vim
 unlet b:current_syntax
-syntax region template keepend start=/^<template>/ end=/^<\/template>/ contains=@HTML fold
+syntax region html keepend start=/^<template>/ end=/^<\/template>/ contains=@HTML fold
 
 if s:syntaxes.pug
   syntax include @PUG syntax/pug.vim
@@ -42,7 +42,7 @@ endif
 
 syntax include @JS syntax/javascript.vim
 unlet b:current_syntax
-syntax region script keepend start=/<script\s*\(type="text\/babel"\)\?>/ end="</script>" contains=@JS fold
+syntax region javascript keepend start=/<script\s*\(type="text\/babel"\)\?>/ end="</script>" contains=@JS fold
 
 if s:syntaxes.coffee
   syntax include @COFFEE syntax/coffee.vim
@@ -53,7 +53,7 @@ endif
 
 syntax include @CSS syntax/css.vim
 unlet b:current_syntax
-syntax region style keepend start=/<style\( \+scoped\)\?>/ end="</style>" contains=@CSS fold
+syntax region css keepend start=/<style\( \+scoped\)\?>/ end="</style>" contains=@CSS fold
 
 if s:syntaxes.stylus
   syntax include @stylus syntax/stylus.vim
