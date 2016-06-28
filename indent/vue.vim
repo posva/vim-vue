@@ -308,7 +308,9 @@ fun! HtmlIndentGet(lnum)
     if   0 < searchpair(js, '', jse, 'nWb')
     \ && 0 < searchpair(js, '', jse, 'nW')
         " we're inside javascript
-        if getline(searchpair(js, '', '</script>', 'nWb')) !~ '<script [^>]*type=["'']\?text\/\(html\|\(ng-\)\?template\)'
+        let startTag = getline(searchpair(js, '', '</script>', 'nWb')) 
+
+        if startTag !~ '<script [^>]*type=["'']\?text\/\(html\|\(ng-\)\?template\)'
         \ && getline(lnum) !~ js && getline(a:lnum) !~ jse
             if restore_ic == 0
               setlocal noic
@@ -330,19 +332,57 @@ fun! HtmlIndentGet(lnum)
     if   0 < searchpair(css, '', csse, 'nWb')
     \ && 0 < searchpair(css, '', csse, 'nW')
         " we're inside style
+        let startTag = getline(searchpair(css, '', '</style>', 'nWb')) 
+
         if getline(lnum) !~ css && getline(a:lnum) !~ csse
             if restore_ic == 0
               setlocal noic
             endif
             if s:cssindent == ''
               return cindent(a:lnum)
+            elseif startTag =~ '<style [^>]*lang=["'']\?stylus'
+              unlet b:did_indent
+              runtime! indent/stylus.vim
+              let s:stylindent = &indentexpr
+              let b:did_indent = 1
+              execute 'let ind = ' . s:stylindent
+              return ind
             else
               execute 'let ind = ' . s:cssindent
+              return
               return ind
             endif
         endif
         if getline(a:lnum) =~ csse
           return indent(searchpair(css, '', csse, 'nWb'))
+        endif
+    endif
+    let template = '<template'
+    let templatee = '</template>'
+    if   0 < searchpair(template, '', templatee, 'nWb')
+    \ && 0 < searchpair(template, '', templatee, 'nW')
+        " we're inside template
+        let startTag = getline(searchpair(template, '', '</template>', 'nWb')) 
+
+        if getline(lnum) !~ template && getline(a:lnum) !~ templatee
+            if restore_ic == 0
+              setlocal noic
+            endif
+            if startTag =~ '<template [^>]*lang=["'']\?pug'
+              unlet b:did_indent
+              runtime! indent/pug.vim
+              let s:pugindent = &indentexpr
+              let b:did_indent = 1
+              execute 'let ind = ' . s:pugindent
+              return ind
+            else
+              execute 'let ind = ' . s:cssindent
+
+              return ind
+            endif
+        endif
+        if getline(a:lnum) =~ templatee
+          return indent(searchpair(template, '', templatee, 'nWb'))
         endif
     endif
 
