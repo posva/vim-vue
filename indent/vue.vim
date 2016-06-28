@@ -375,10 +375,6 @@ fun! HtmlIndentGet(lnum)
               let b:did_indent = 1
               execute 'let ind = ' . s:pugindent
               return ind
-            else
-              execute 'let ind = ' . s:cssindent
-
-              return ind
             endif
         endif
         if getline(a:lnum) =~ templatee
