@@ -27,6 +27,12 @@
 if exists("b:did_indent")
     finish
 endif
+runtime! indent/stylus.vim
+let s:stylindent = &indentexpr
+unlet b:did_indent
+runtime! indent/pug.vim
+let s:pugindent = &indentexpr
+unlet b:did_indent
 runtime! indent/javascript.vim
 let s:jsindent = &indentexpr
 unlet b:did_indent
@@ -341,10 +347,6 @@ fun! HtmlIndentGet(lnum)
             if s:cssindent == ''
               return cindent(a:lnum)
             elseif startTag =~ '<style [^>]*lang=["'']\?stylus'
-              unlet b:did_indent
-              runtime! indent/stylus.vim
-              let s:stylindent = &indentexpr
-              let b:did_indent = 1
               execute 'let ind = ' . s:stylindent
               return ind
             else
@@ -369,10 +371,6 @@ fun! HtmlIndentGet(lnum)
               setlocal noic
             endif
             if startTag =~ '<template [^>]*lang=["'']\?pug'
-              unlet b:did_indent
-              runtime! indent/pug.vim
-              let s:pugindent = &indentexpr
-              let b:did_indent = 1
               execute 'let ind = ' . s:pugindent
               return ind
             endif
