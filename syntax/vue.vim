@@ -30,52 +30,70 @@ endif
 
 
 syntax include @HTML syntax/html.vim
-unlet b:current_syntax
+if exists("b:current_syntax")
+  unlet b:current_syntax
+endif
 syntax region template keepend start=/^<template>/ end=/^<\/template>/ contains=@HTML fold
 
 if s:syntaxes.pug
   syntax include @PUG syntax/pug.vim
-  unlet b:current_syntax
+  if exists("b:current_syntax")
+    unlet b:current_syntax
+  endif
   syntax region pug keepend start=/<template lang="[^"]*pug[^"]*">/ end="</template>" contains=@PUG fold
   syntax region pug keepend start=/<template lang="[^"]*jade[^"]*">/ end="</template>" contains=@PUG fold
 endif
 
 syntax include @JS syntax/javascript.vim
-unlet b:current_syntax
+if exists("b:current_syntax")
+  unlet b:current_syntax
+endif
 syntax region script keepend start=/<script\( lang="babel"\)\?\( type="text\/babel"\)\?>/ end="</script>" contains=@JS fold
 
 if s:syntaxes.coffee
   syntax include @COFFEE syntax/coffee.vim
-  unlet b:current_syntax
+  if exists("b:current_syntax")
+    unlet b:current_syntax
+  endif
   " Matchgroup seems to be necessary for coffee
   syntax region coffee keepend matchgroup=Delimiter start="<script lang=\"coffee\">" end="</script>" contains=@COFFEE fold
 endif
 
 syntax include @CSS syntax/css.vim
-unlet b:current_syntax
+if exists("b:current_syntax")
+  unlet b:current_syntax
+endif
 syntax region style keepend start=/<style\( \+scoped\)\?>/ end="</style>" contains=@CSS fold
 
 if s:syntaxes.stylus
   syntax include @stylus syntax/stylus.vim
-  unlet b:current_syntax
+  if exists("b:current_syntax")
+    unlet b:current_syntax
+  endif
   syntax region stylus keepend start=/<style lang="[^"]*stylus[^"]*"\( \+scoped\)\?>/ end="</style>" contains=@stylus fold
 endif
 
 if s:syntaxes.sass
   syntax include @sass syntax/sass.vim
-  unlet b:current_syntax
+  if exists("b:current_syntax")
+    unlet b:current_syntax
+  endif
   syntax region sass keepend start=/<style\( \+scoped\)\? lang="[^"]*sass[^"]*"\( \+scoped\)\?>/ end="</style>" contains=@sass fold
 endif
 
 if s:syntaxes.scss
   syntax include @scss syntax/scss.vim
-  unlet b:current_syntax
+  if exists("b:current_syntax")
+    unlet b:current_syntax
+  endif
   syntax region scss keepend start=/<style\( \+scoped\)\? lang="[^"]*scss[^"]*"\( \+scoped\)\?>/ end="</style>" contains=@scss fold
 endif
 
 if s:syntaxes.less
   syntax include @less syntax/less.vim
-  unlet b:current_syntax
+  if exists("b:current_syntax")
+    unlet b:current_syntax
+  endif
   syntax region less keepend matchgroup=PreProc start=/<style\%( \+scoped\)\? lang="less"\%( \+scoped\)\?>/ end="</style>" contains=@less fold
 endif
 
