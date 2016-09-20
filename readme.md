@@ -14,6 +14,15 @@ new version instead of a PR.
 
 `Plugin 'posva/vim-vue'`
 
+### Integration with [Syntastic](https://github.com/scrooloose/syntastic)
+
+Currently only `eslint` is available. Please make sure `eslint` and
+`eslint-plugin-vue` are installed:
+
+```bash
+npm i -g eslint eslint-plugin-vue
+```
+
 ## Contributing
 
 If your language is not getting highlighted open an issue or a PR with the fix.
