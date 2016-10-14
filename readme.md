@@ -14,6 +14,13 @@ new version instead of a PR.
 
 `Plugin 'posva/vim-vue'`
 
+### Install with [Pathogen](https://github.com/tpope/vim-pathogen)
+
+```
+cd ~/.vim/bundle && \
+git clone https://github.com/posva/vim-vue.git
+```
+
 ### Integration with [Syntastic](https://github.com/scrooloose/syntastic)
 
 Currently only `eslint` is available. Please make sure `eslint` and
