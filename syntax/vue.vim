@@ -40,8 +40,8 @@ if s:syntaxes.pug
   if exists("b:current_syntax")
     unlet b:current_syntax
   endif
-  syntax region pug keepend start=/<template lang="[^"]*pug[^"]*">/ end="</template>" contains=@PUG fold
-  syntax region pug keepend start=/<template lang="[^"]*jade[^"]*">/ end="</template>" contains=@PUG fold
+  syntax region pug keepend start=/<template lang=\("\|'\)[^\1]*pug[^\1]*\1>/ end="</template>" contains=@PUG fold
+  syntax region pug keepend start=/<template lang=\("\|'\)[^\1]*jade[^\1]*\1>/ end="</template>" contains=@PUG fold
 endif
 
 syntax include @JS syntax/javascript.vim
@@ -70,7 +70,7 @@ if s:syntaxes.stylus
   if exists("b:current_syntax")
     unlet b:current_syntax
   endif
-  syntax region stylus keepend start=/<style lang="[^"]*stylus[^"]*"\( \+scoped\)\?>/ end="</style>" contains=@stylus fold
+  syntax region stylus keepend start=/<style lang=\("\|'\)[^\1]*stylus[^\1]*\1\( \+scoped\)\?>/ end="</style>" contains=@stylus fold
 endif
 
 if s:syntaxes.sass
@@ -78,7 +78,7 @@ if s:syntaxes.sass
   if exists("b:current_syntax")
     unlet b:current_syntax
   endif
-  syntax region sass keepend start=/<style\( \+scoped\)\? lang="[^"]*sass[^"]*"\( \+scoped\)\?>/ end="</style>" contains=@sass fold
+  syntax region sass keepend start=/<style\( \+scoped\)\? lang=\("\|'\)[^\1]*sass[^\1]*\1\( \+scoped\)\?>/ end="</style>" contains=@sass fold
 endif
 
 if s:syntaxes.scss
@@ -86,7 +86,7 @@ if s:syntaxes.scss
   if exists("b:current_syntax")
     unlet b:current_syntax
   endif
-  syntax region scss keepend start=/<style\( \+scoped\)\? lang="[^"]*scss[^"]*"\( \+scoped\)\?>/ end="</style>" contains=@scss fold
+  syntax region scss keepend start=/<style\( \+scoped\)\? lang=\("\|'\)[^\1]*scss[^\1]*\1\( \+scoped\)\?>/ end="</style>" contains=@scss fold
 endif
 
 if s:syntaxes.less
@@ -94,7 +94,7 @@ if s:syntaxes.less
   if exists("b:current_syntax")
     unlet b:current_syntax
   endif
-  syntax region less keepend matchgroup=PreProc start=/<style\%( \+scoped\)\? lang="less"\%( \+scoped\)\?>/ end="</style>" contains=@less fold
+  syntax region less keepend matchgroup=PreProc start=/<style\%( \+scoped\)\? lang=\("\|'\)[^\1]*less[^\1]*\1\%( \+scoped\)\?>/ end="</style>" contains=@less fold
 endif
 
 let b:current_syntax = "vue"
