@@ -12,13 +12,21 @@ new version instead of a PR.
 
 ### Install with [Vundle](https://github.com/VundleVim/Vundle.vim)
 
-`Plugin 'posva/vim-vue'`
+```viml
+Plugin 'posva/vim-vue'
+```
 
 ### Install with [Pathogen](https://github.com/tpope/vim-pathogen)
 
-```
+```bash
 cd ~/.vim/bundle && \
 git clone https://github.com/posva/vim-vue.git
+```
+
+### Install without a plugin manager (Vim 8)
+
+```bash
+git clone https://github.com/posva/vim-vue.git ~/.vim/pack/plugins/start
 ```
 
 ### Integration with [Syntastic](https://github.com/scrooloose/syntastic)
