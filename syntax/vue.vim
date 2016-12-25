@@ -25,7 +25,7 @@ if !exists("s:syntaxes")
     return syntaxes
   endfunction
 
-  let s:syntaxes = s:search_syntaxes('pug', 'coffee', 'stylus', 'sass', 'scss', 'less')
+  let s:syntaxes = s:search_syntaxes('pug', 'slm', 'coffee', 'stylus', 'sass', 'scss', 'less')
 endif
 
 
@@ -42,6 +42,14 @@ if s:syntaxes.pug
   endif
   syntax region pug keepend start=/<template lang=\("\|'\)[^\1]*pug[^\1]*\1>/ end="</template>" contains=@PUG fold
   syntax region pug keepend start=/<template lang=\("\|'\)[^\1]*jade[^\1]*\1>/ end="</template>" contains=@PUG fold
+endif
+
+if s:syntaxes.slm
+  syntax include @SLM syntax/slm.vim
+  if exists("b:current_syntax")
+    unlet b:current_syntax
+  endif
+  syntax region slm keepend start=/<template lang=\("\|'\)[^\1]*slm[^\1]*\1>/ end="</template>" contains=@SLM fold
 endif
 
 syntax include @JS syntax/javascript.vim
