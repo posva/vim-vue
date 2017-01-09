@@ -56,7 +56,7 @@ syntax include @JS syntax/javascript.vim
 if exists("b:current_syntax")
   unlet b:current_syntax
 endif
-syntax region javascript keepend start=/<script\( lang="babel"\)\?\( type="text\/babel"\)\?>/ end="</script>" contains=@JS fold
+syntax region javascript keepend matchgroup=Delimiter start=/<script\( lang="babel"\)\?\( type="text\/babel"\)\?>/ end="</script>" contains=@JS fold
 
 if s:syntaxes.coffee
   syntax include @COFFEE syntax/coffee.vim
