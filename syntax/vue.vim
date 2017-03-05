@@ -64,19 +64,19 @@ syntax region css keepend start=/<style\( \+scoped\)\?>/ end="</style>" contains
 if s:syntaxes.stylus
   syntax include @stylus syntax/stylus.vim
   unlet! b:current_syntax
-  syntax region stylus keepend start=/<style lang=\("\|'\)[^\1]*stylus[^\1]*\1\( \+scoped\)\?>/ end="</style>" contains=@stylus fold
+  syntax region stylus keepend start=/<style.\+lang=\("\|'\)[^\1]*stylus[^\1]*\1.*>/ end="</style>" contains=@stylus fold
 endif
 
 if s:syntaxes.sass
   syntax include @sass syntax/sass.vim
   unlet! b:current_syntax
-  syntax region sass keepend start=/<style\( \+scoped\)\? lang=\("\|'\)[^\1]*sass[^\1]*\1\( \+scoped\)\?>/ end="</style>" contains=@sass fold
+  syntax region sass keepend start=/<style.\+lang=\("\|'\)[^\1]*sass[^\1]*\1.*>/ end="</style>" contains=@sass fold
 endif
 
 if s:syntaxes.scss
   syntax include @scss syntax/scss.vim
   unlet! b:current_syntax
-  syntax region scss keepend start=/<style\( \+scoped\)\? lang=\("\|'\)[^\1]*scss[^\1]*\1\( \+scoped\)\?>/ end="</style>" contains=@scss fold
+  syntax region scss keepend start=/<style.\+lang=\("\|'\)[^\1]*scss[^\1]*\1.*>/ end="</style>" contains=@scss fold
 endif
 
 if s:syntaxes.less
