@@ -31,7 +31,7 @@ endif
 
 syntax include @HTML syntax/html.vim
 unlet! b:current_syntax
-syntax region html keepend start=/^<template>/ end=/^<\/template>/ contains=@HTML fold
+syntax region html keepend start=/^<template\( lang=\("\|'\)[^\1]*html[^\1]*\1\)\?>/ end=/^<\/template>/ contains=@HTML fold
 
 if s:syntaxes.pug
   syntax include @PUG syntax/pug.vim
@@ -49,6 +49,12 @@ endif
 syntax include @JS syntax/javascript.vim
 unlet! b:current_syntax
 syntax region javascript keepend matchgroup=Delimiter start=/<script\( lang="babel"\)\?\( type="text\/babel"\)\?>/ end="</script>" contains=@JS fold
+
+syntax include @TS syntax/typescript.vim
+if exists("b:current_syntax")
+  unlet b:current_syntax
+endif
+syntax region typescript keepend matchgroup=Delimiter start=/<script\( lang="typescript"\)\?\( type="text\/typescript"\)\?>/ end="</script>" contains=@TS fold
 
 if s:syntaxes.coffee
   syntax include @COFFEE syntax/coffee.vim
