@@ -50,11 +50,11 @@ syntax include @JS syntax/javascript.vim
 unlet! b:current_syntax
 syntax region javascript keepend matchgroup=Delimiter start=/<script\( lang="babel"\)\?\( type="text\/babel"\)\?>/ end="</script>" contains=@JS fold
 
-syntax include @TS syntax/typescript.vim
-if exists("b:current_syntax")
-  unlet b:current_syntax
+if s:syntaxes.typescript
+  syntax include @TS syntax/typescript.vim
+  unlet! b:current_syntax
+  syntax region typescript keepend matchgroup=Delimiter start=/<script \_[^>]*\(lang=\("\|'\)[^\2]*\(ts\|typescript\)[^\2]*\2\|ts\)\_[^>]*>/ end="</script>" contains=@TS fold
 endif
-syntax region typescript keepend matchgroup=Delimiter start=/<script \_[^>]*\(lang=\("\|'\)[^\2]*\(ts\|typescript\)[^\2]*\2\|ts\)\_[^>]*>/ end="</script>" contains=@TS fold
 
 if s:syntaxes.coffee
   syntax include @COFFEE syntax/coffee.vim
