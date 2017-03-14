@@ -38,6 +38,20 @@ Currently only `eslint` is available. Please make sure `eslint` and
 npm i -g eslint eslint-plugin-vue
 ```
 
+## Typescript support
+
+You can use typescript by adding one of the following attributes/values to
+your component's script tag:
+
+```html
+<script ts></script>
+<script lang="ts"></script>
+<script lang="typescript"></script>
+```
+
+Choose one that works with your module bundler
+
+
 ## Contributing
 
 If your language is not getting highlighted open an issue or a PR with the fix.
