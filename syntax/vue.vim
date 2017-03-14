@@ -25,7 +25,7 @@ if !exists("s:syntaxes")
     return syntaxes
   endfunction
 
-  let s:syntaxes = s:search_syntaxes('pug', 'slm', 'coffee', 'stylus', 'sass', 'scss', 'less')
+  let s:syntaxes = s:search_syntaxes('pug', 'slm', 'coffee', 'stylus', 'sass', 'scss', 'less', 'typescript')
 endif
 
 
