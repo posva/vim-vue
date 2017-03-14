@@ -54,7 +54,7 @@ syntax include @TS syntax/typescript.vim
 if exists("b:current_syntax")
   unlet b:current_syntax
 endif
-syntax region typescript keepend matchgroup=Delimiter start=/<script\( ts\| lang="ts"\| lang="typescript"\)>/ end="</script>" contains=@TS fold
+syntax region typescript keepend matchgroup=Delimiter start=/<script \_[^>]*\(lang=\("\|'\)[^\2]*\(ts\|typescript\)[^\2]*\2\|ts\)\_[^>]*>/ end="</script>" contains=@TS fold
 
 if s:syntaxes.coffee
   syntax include @COFFEE syntax/coffee.vim
