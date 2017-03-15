@@ -31,7 +31,7 @@ endif
 
 syntax include @HTML syntax/html.vim
 unlet! b:current_syntax
-syntax region html keepend start=/^<template\( lang=\("\|'\)[^\1]*html[^\1]*\1\)\?>/ end=/^<\/template>/ contains=@HTML fold
+syntax region html keepend start=/^<template\_[^>]*>/ end=/^<\/template>/ contains=@HTML fold
 
 if s:syntaxes.pug
   syntax include @PUG syntax/pug.vim
