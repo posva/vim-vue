@@ -1,7 +1,7 @@
 #
 # HTML
 #
-Given vue(HTML template without lang attribute):
+Given vue (HTML template without lang attribute):
   <template>
     <div></div>
   </template>
@@ -9,26 +9,148 @@ Given vue(HTML template without lang attribute):
 Execute:
   AssertEqual 'htmlTag', SyntaxAt(2, 3)
 
+
+Given vue (Template tag inside a template):
+  <template>
+    <div>
+      <template v-if="loading">
+        Loading...
+      </template>
+    </div>
+  </template>
+
+Execute (Syntax doesn't stop at the first closing template tag):
+  AssertEqual 'htmlEndTag', SyntaxAt(6, 3)
+
 #
 # JavaScript
 #
 Given vue:
   <script>
-    //
+  //
   </script>
 
 Execute:
-  AssertEqual 'javaScriptLineComment', SyntaxAt(2, 3)
+  AssertEqual 'javaScriptLineComment', SyntaxAt(2, 1)
   " TODO: Assert that the script tag is highlighted as HTML
+
+
+Given vue (Script tag with misc. attributes and newline):
+  <script type="text/babel"
+          lang="babel"
+  >
+  //
+  </script>
+
+Execute:
+  AssertEqual 'javaScriptLineComment', SyntaxAt(4, 1)
 
 #
 # CSS
 #
-Given vue(CSS region without lang attribute):
+Given vue (CSS region without lang attribute):
   <style>
-    /**/
+  /**/
   </style>
 
 Execute:
-  AssertEqual 'cssComment', SyntaxAt(2, 3)
+  AssertEqual 'cssComment', SyntaxAt(2, 1)
   " TODO Assert that the style tag is highlighted as HTML
+
+#
+# Pug
+#
+Given vue (Pug template):
+  <template lang="pug">
+  p #{name}'s Pug source code!
+  </template>
+
+Execute:
+  AssertEqual 'htmlTagName', SyntaxAt(2, 1)
+  AssertEqual 'pugInterpolationDelimiter', SyntaxAt(2, 3)
+
+
+Given vue (Pug template using their former name):
+  <template lang="jade">
+  p #{name}'s Pug source code!
+  </template>
+
+Execute:
+  AssertEqual 'htmlTagName', SyntaxAt(2, 1)
+  AssertEqual 'pugInterpolationDelimiter', SyntaxAt(2, 3)
+
+#
+# SCSS
+#
+Given vue (SCSS region):
+  <style lang="scss">
+  $green: #42b983;
+  </style>
+
+Execute:
+  AssertEqual 'scssVariable', SyntaxAt(2, 1)
+
+#
+# Sass
+#
+Given vue (Sass region):
+  <style lang="sass">
+  $green: #42b983
+  </style>
+
+Execute:
+  AssertEqual 'sassVariable', SyntaxAt(2, 1)
+
+
+Given vue (Sass region with modifier):
+  <style lang="sass?indentedSyntax">
+  $green: #42b983
+  </style>
+
+Execute:
+  AssertEqual 'sassVariable', SyntaxAt(2, 1)
+
+#
+# Stylus
+#
+Given vue (Sass region):
+  <style lang="stylus">
+  @import 'variables'
+
+  body
+    font: 12px Helvetica, Arial, sans-serif
+  </style>
+
+Execute:
+  AssertEqual 'stylusImport', SyntaxAt(2, 1)
+  AssertEqual 'cssTagName', SyntaxAt(4, 1)
+
+
+#
+# TypeScript
+#
+Given vue (Typescript region using "ts" as name):
+  <script lang="ts">
+  @Component({})
+  </script>
+
+Execute:
+  AssertEqual 'typescriptDecorators', SyntaxAt(2, 1)
+
+
+Given vue (Typescript region using "typescript" as name):
+  <script lang="typescript">
+  @Component({})
+  </script>
+
+Execute:
+  AssertEqual 'typescriptDecorators', SyntaxAt(2, 1)
+
+
+Given vue (Typescript region using "ts" attribute):
+  <script ts>
+  @Component({})
+  </script>
+
+Execute:
+  AssertEqual 'typescriptDecorators', SyntaxAt(2, 1)

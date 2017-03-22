@@ -1,7 +1,7 @@
 #
 # HTML
 #
-Given vue(An unindented html template):
+Given vue (An unindented html template):
   <template>
   <div>
   Hello
@@ -21,7 +21,7 @@ Expect (The html template got indented):
 #
 # JavaScript
 #
-Given vue(An unindented JavaScript region):
+Given vue (An unindented JavaScript region):
   <script>
   export default {
   methods: {
@@ -35,7 +35,7 @@ Given vue(An unindented JavaScript region):
 Do (Indent the whole buffer):
   gg=G
 
-Expect vue(TODO):
+Expect vue (TODO):
 * TODO: fix the indent script to exclude the surrounding html tag
   <script>
   export default {
@@ -50,7 +50,7 @@ Expect vue(TODO):
 #
 # CSS
 #
-Given vue(An unindented css region):
+Given vue (An unindented css region):
   <style>
   body {
   background: tomato;
@@ -60,7 +60,7 @@ Given vue(An unindented css region):
 Do:
   gg=G
 
-Expect vue(The css region got indented):
+Expect vue (The css region got indented):
   <style>
   body {
     background: tomato;

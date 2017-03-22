@@ -8,6 +8,7 @@ repos=(
   'digitaltoad/vim-pug'
   'groenewege/vim-less'
   'kchmck/vim-coffee-script'
+  'leafgarland/typescript-vim'
   'slm-lang/vim-slm'
   'wavded/vim-stylus'
 )
