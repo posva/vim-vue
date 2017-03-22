@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+set -e
+
+repos=(
+  'junegunn/vader.vim'
+  'cakebaker/scss-syntax.vim'
+  'digitaltoad/vim-pug'
+  'groenewege/vim-less'
+  'kchmck/vim-coffee-script'
+  'slm-lang/vim-slm'
+  'wavded/vim-stylus'
+)
+
+cd "$(dirname "$0")/.."
+mkdir -p pack/testing/start
+cd pack/testing/start
+
+# Add our plugin to the pack.
+ln -s ../../.. vim-vue
+
+for repo in ${repos[@]}
+do
+  git clone https://github.com/$repo.git
+done

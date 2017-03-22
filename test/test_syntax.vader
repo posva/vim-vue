@@ -1,0 +1,34 @@
+#
+# HTML
+#
+Given vue(HTML template without lang attribute):
+  <template>
+    <div></div>
+  </template>
+
+Execute:
+  AssertEqual 'htmlTag', SyntaxAt(2, 3)
+
+#
+# JavaScript
+#
+Given vue:
+  <script>
+    //
+  </script>
+
+Execute:
+  AssertEqual 'javaScriptLineComment', SyntaxAt(2, 3)
+  " TODO: Assert that the script tag is highlighted as HTML
+
+#
+# CSS
+#
+Given vue(CSS region without lang attribute):
+  <style>
+    /**/
+  </style>
+
+Execute:
+  AssertEqual 'cssComment', SyntaxAt(2, 3)
+  " TODO Assert that the style tag is highlighted as HTML

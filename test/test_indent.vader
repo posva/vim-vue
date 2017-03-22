@@ -1,0 +1,68 @@
+#
+# HTML
+#
+Given vue(An unindented html template):
+  <template>
+  <div>
+  Hello
+  </div>
+  </template>
+
+Do:
+  gg=G
+
+Expect (The html template got indented):
+  <template>
+    <div>
+      Hello
+    </div>
+  </template>
+
+#
+# JavaScript
+#
+Given vue(An unindented JavaScript region):
+  <script>
+  export default {
+  methods: {
+  foo() {
+  //
+  }
+  }
+  }
+  </script>
+
+Do (Indent the whole buffer):
+  gg=G
+
+Expect vue(TODO):
+* TODO: fix the indent script to exclude the surrounding html tag
+  <script>
+  export default {
+    methods: {
+      foo() {
+        //
+      }
+    }
+  }
+  </script>
+
+#
+# CSS
+#
+Given vue(An unindented css region):
+  <style>
+  body {
+  background: tomato;
+  }
+  </style>
+
+Do:
+  gg=G
+
+Expect vue(The css region got indented):
+  <style>
+  body {
+    background: tomato;
+  }
+  </style>
