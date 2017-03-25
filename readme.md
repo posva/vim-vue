@@ -1,4 +1,4 @@
-# vim-vue
+# vim-vue [![CircleCI](https://img.shields.io/circleci/project/github/posva/vim-vue.svg)](https://circleci.com/gh/posva/vim-vue)
 
 Vim syntax highlighting for [Vue
 components](https://vuejs.org/v2/guide/single-file-components.html).
