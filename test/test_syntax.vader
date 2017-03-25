@@ -8,6 +8,8 @@ Given vue (HTML template without lang attribute):
 
 Execute:
   AssertEqual 'htmlTag', SyntaxAt(2, 3)
+  AssertEqual 'htmlTag', SyntaxAt(1, 1)
+  AssertEqual 'htmlSpecialTagName', SyntaxAt(1, 2)
 
 
 Given vue (Template tag inside a template):
@@ -32,7 +34,7 @@ Given vue:
 
 Execute:
   AssertEqual 'javaScriptLineComment', SyntaxAt(2, 1)
-  " TODO: Assert that the script tag is highlighted as HTML
+  AssertEqual 'htmlScriptTag', SyntaxAt(1, 1)
 
 
 Given vue (Script tag with misc. attributes and newline):
@@ -44,6 +46,8 @@ Given vue (Script tag with misc. attributes and newline):
 
 Execute:
   AssertEqual 'javaScriptLineComment', SyntaxAt(4, 1)
+  AssertEqual 'htmlArg', SyntaxAt(2, 9)
+  AssertEqual 'htmlScriptTag', SyntaxAt(1, 1)
 
 #
 # CSS
@@ -55,7 +59,7 @@ Given vue (CSS region without lang attribute):
 
 Execute:
   AssertEqual 'cssComment', SyntaxAt(2, 1)
-  " TODO Assert that the style tag is highlighted as HTML
+  AssertEqual 'htmlTag', SyntaxAt(1, 1)
 
 #
 # Pug
@@ -68,6 +72,7 @@ Given vue (Pug template):
 Execute:
   AssertEqual 'htmlTagName', SyntaxAt(2, 1)
   AssertEqual 'pugInterpolationDelimiter', SyntaxAt(2, 3)
+  AssertEqual 'vueSurroundingTag', SyntaxAt(1, 1)
 
 
 Given vue (Pug template using their former name):
@@ -89,6 +94,7 @@ Given vue (SCSS region):
 
 Execute:
   AssertEqual 'scssVariable', SyntaxAt(2, 1)
+  AssertEqual 'vueSurroundingTag', SyntaxAt(1, 1)
 
 #
 # Sass
@@ -100,6 +106,7 @@ Given vue (Sass region):
 
 Execute:
   AssertEqual 'sassVariable', SyntaxAt(2, 1)
+  AssertEqual 'vueSurroundingTag', SyntaxAt(1, 1)
 
 
 Given vue (Sass region with modifier):
@@ -124,6 +131,7 @@ Given vue (Sass region):
 Execute:
   AssertEqual 'stylusImport', SyntaxAt(2, 1)
   AssertEqual 'cssTagName', SyntaxAt(4, 1)
+  AssertEqual 'vueSurroundingTag', SyntaxAt(1, 1)
 
 
 #
@@ -136,6 +144,7 @@ Given vue (Typescript region using "ts" as name):
 
 Execute:
   AssertEqual 'typescriptDecorators', SyntaxAt(2, 1)
+  AssertEqual 'vueSurroundingTag', SyntaxAt(1, 1)
 
 
 Given vue (Typescript region using "typescript" as name):
@@ -154,3 +163,4 @@ Given vue (Typescript region using "ts" attribute):
 
 Execute:
   AssertEqual 'typescriptDecorators', SyntaxAt(2, 1)
+  AssertEqual 'htmlArg', SyntaxAt(1, 9)
