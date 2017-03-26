@@ -4,6 +4,8 @@ set -e
 
 repos=(
   'junegunn/vader.vim'
+
+  # languages
   'cakebaker/scss-syntax.vim'
   'digitaltoad/vim-pug'
   'groenewege/vim-less'
@@ -11,6 +13,9 @@ repos=(
   'leafgarland/typescript-vim'
   'slm-lang/vim-slm'
   'wavded/vim-stylus'
+
+  # utility
+  'scrooloose/nerdcommenter'
 )
 
 cd "$(dirname "$0")/.."
