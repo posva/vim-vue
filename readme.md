@@ -79,3 +79,16 @@ autocmd FileType vue syntax sync fromstart
 
 See `:h :syn-sync-first` and [this article](http://vim.wikia.com/wiki/Fix_syntax_highlighting)
 for more details.
+
+### How can I use existing configuration/plugins in Vue files?
+
+If you already have some configuration for filetypes like html, css and
+javascript (e.g. linters, completion), you can use them in .vue files by
+setting compound filetypes like this:
+
+```vim
+autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
+```
+
+:warning: This may cause problems, because some plugins will then treat the
+whole buffer as html/javascript/css instead of only the part inside the tags.
