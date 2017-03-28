@@ -29,10 +29,11 @@ git clone https://github.com/posva/vim-vue.git
 git clone https://github.com/posva/vim-vue.git ~/.vim/pack/plugins/start
 ```
 
-### Integration with [Syntastic](https://github.com/scrooloose/syntastic)
+### Integration with [Syntastic](https://github.com/scrooloose/syntastic) or [ALE](https://github.com/w0rp/ale)
 
-Currently only `eslint` is available. Please make sure `eslint` and
-`eslint-plugin-vue` are installed:
+Currently only `eslint` is available. Please make sure
+[eslint](http://eslint.org/) and
+[eslint-plugin-vue](https://github.com/vuejs/eslint-plugin-vue) are installed:
 
 ```bash
 npm i -g eslint eslint-plugin-vue
