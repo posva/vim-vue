@@ -26,7 +26,7 @@ git clone https://github.com/posva/vim-vue.git
 ### Install without a plugin manager (Vim 8)
 
 ```bash
-git clone https://github.com/posva/vim-vue.git ~/.vim/pack/plugins/start
+git clone https://github.com/posva/vim-vue.git ~/.vim/pack/plugins/start/vim-vue
 ```
 
 ### Integration with [Syntastic](https://github.com/scrooloose/syntastic) or [ALE](https://github.com/w0rp/ale)
