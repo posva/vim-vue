@@ -53,5 +53,6 @@ call s:register_language('less', 'style')
 syn region  vueSurroundingTag   contained start=+<\(script\|style\|template\)+ end=+>+ fold contains=htmlTagN,htmlString,htmlArg,htmlValue,htmlTagError,htmlEvent
 syn keyword htmlSpecialTagName  contained template
 syn keyword htmlArg             contained scoped ts
+syn match   htmlArg "[@v:][-:.0-9_a-z]*\>" contained
 
 let b:current_syntax = "vue"
