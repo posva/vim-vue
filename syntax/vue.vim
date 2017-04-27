@@ -43,6 +43,7 @@ endfunction
 call s:register_language('pug', 'template', s:attr('lang', '\%(pug\|jade\)'))
 call s:register_language('slm', 'template')
 call s:register_language('handlebars', 'template')
+call s:register_language('haml', 'template')
 call s:register_language('typescript', 'script', '\%(lang=\("\|''\)[^\1]*\(ts\|typescript\)[^\1]*\1\|ts\)')
 call s:register_language('coffee', 'script')
 call s:register_language('stylus', 'style')
