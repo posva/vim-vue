@@ -40,16 +40,16 @@ function! s:register_language(language, tag, ...)
   endif
 endfunction
 
-call s:register_language('pug', 'template', s:attr('lang', '\%(pug\|jade\)'))
+"call s:register_language('pug', 'template', s:attr('lang', '\%(pug\|jade\)'))
 call s:register_language('slm', 'template')
 call s:register_language('handlebars', 'template')
 call s:register_language('haml', 'template')
-call s:register_language('typescript', 'script', '\%(lang=\("\|''\)[^\1]*\(ts\|typescript\)[^\1]*\1\|ts\)')
-call s:register_language('coffee', 'script')
-call s:register_language('stylus', 'style', s:attr('lang', '\%(stylus\)'))
-call s:register_language('sass', 'style', s:attr('lang', '\%(sass\)'))
-call s:register_language('scss', 'style', s:attr('lang', '\%(scss\)'))
-call s:register_language('less', 'style', s:attr('lang', '\%(less\)'))
+"call s:register_language('typescript', 'script', '\%(lang=\("\|''\)[^\1]*\(ts\|typescript\)[^\1]*\1\|ts\)')
+"call s:register_language('coffee', 'script')
+"call s:register_language('stylus', 'style', s:attr('lang', '\%(stylus\)'))
+"call s:register_language('sass', 'style', s:attr('lang', '\%(sass\)'))
+"call s:register_language('scss', 'style', s:attr('lang', '\%(scss\)'))
+"call s:register_language('less', 'style', s:attr('lang', '\%(less\)'))
 
 syn region  vueSurroundingTag   contained start=+<\(script\|style\|template\)+ end=+>+ fold contains=htmlTagN,htmlString,htmlArg,htmlValue,htmlTagError,htmlEvent
 syn keyword htmlSpecialTagName  contained template
