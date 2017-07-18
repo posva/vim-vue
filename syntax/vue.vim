@@ -46,10 +46,6 @@ call s:register_language('handlebars', 'template')
 call s:register_language('haml', 'template')
 call s:register_language('typescript', 'script', '\%(lang=\("\|''\)[^\1]*\(ts\|typescript\)[^\1]*\1\|ts\)')
 call s:register_language('coffee', 'script')
-call s:register_language('stylus', 'style')
-call s:register_language('sass', 'style')
-call s:register_language('scss', 'style')
-call s:register_language('less', 'style')
 
 syn region  vueSurroundingTag   contained start=+<\(script\|style\|template\)+ end=+>+ fold contains=htmlTagN,htmlString,htmlArg,htmlValue,htmlTagError,htmlEvent
 syn keyword htmlSpecialTagName  contained template
