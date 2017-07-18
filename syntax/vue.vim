@@ -51,6 +51,7 @@ if !exists("g:avoid_pre_processors") || !g:avoid_pre_processors
   call s:register_language('sass', 'style')
   call s:register_language('scss', 'style')
   call s:register_language('less', 'style')
+endif
 
 syn region  vueSurroundingTag   contained start=+<\(script\|style\|template\)+ end=+>+ fold contains=htmlTagN,htmlString,htmlArg,htmlValue,htmlTagError,htmlEvent
 syn keyword htmlSpecialTagName  contained template
