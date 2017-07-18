@@ -41,7 +41,6 @@ function! s:register_language(language, tag, ...)
 endfunction
 
 if !exists("g:avoid_pre_processors") || !g:avoid_pre_processors
-  echo g:avoid_pre_processors
   call s:register_language('pug', 'template', s:attr('lang', '\%(pug\|jade\)'))
   call s:register_language('slm', 'template')
   call s:register_language('handlebars', 'template')
