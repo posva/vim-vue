@@ -40,7 +40,7 @@ function! s:register_language(language, tag, ...)
   endif
 endfunction
 
-if !exists("g:avoid_pre_processors") || !g:avoid_pre_processors
+if !exists("g:vue_disable_pre_processors") || !g:avoid_pre_processors
   call s:register_language('pug', 'template', s:attr('lang', '\%(pug\|jade\)'))
   call s:register_language('slm', 'template')
   call s:register_language('handlebars', 'template')
