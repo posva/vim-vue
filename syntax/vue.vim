@@ -49,7 +49,7 @@ if !exists("g:vue_disable_pre_processors") || !g:vue_disable_pre_processors
   call s:register_language('coffee', 'script')
   call s:register_language('stylus', 'style')
   call s:register_language('sass', 'style')
-  call s:register_language('scss', 'style')
+  call s:register_language('scss', 'style', s:attr('lang', '\%(scss\)'))
   call s:register_language('less', 'style')
 endif
 
