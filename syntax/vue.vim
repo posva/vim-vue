@@ -45,12 +45,12 @@ if !exists("g:vue_disable_pre_processors") || !g:vue_disable_pre_processors
   call s:register_language('slm', 'template', s:attr('lang', '\%(slm\)'))
   call s:register_language('handlebars', 'template', s:attr('lang', '\%(handlebars\)'))
   call s:register_language('haml', 'template', s:attr('lang', '\%(haml\)'))
-  call s:register_language('typescript', 'script', s:attr('lang', '\%(ts\|typescript\)'))
+  call s:register_language('typescript', 'script', '\%(lang=\("\|''\)[^\1]*\(ts\|typescript\)[^\1]*\1\|ts\)')
   call s:register_language('coffee', 'script', s:attr('lang', '\%(coffee\)'))
   call s:register_language('stylus', 'style', s:attr('lang', '\%(stylus\)'))
   call s:register_language('less', 'style', s:attr('lang', '\%(less\)'))
   call s:register_language('scss', 'style', s:attr('lang', '\%(scss\)'))
-  call s:register_language('sass', 'style', s:attr('lang', '\%(sass\)'))
+  call s:register_language('sass', 'style', s:attr('lang', '\%(scss\)'))
 endif
 
 syn region  vueSurroundingTag   contained start=+<\(script\|style\|template\)+ end=+>+ fold contains=htmlTagN,htmlString,htmlArg,htmlValue,htmlTagError,htmlEvent
