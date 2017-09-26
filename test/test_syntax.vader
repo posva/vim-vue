@@ -27,14 +27,16 @@ Execute (Syntax doesn't stop at the first closing template tag):
 #
 # JavaScript
 #
-Given vue:
+Given vue (Javascript region without lang attribute):
   <script>
   //
+  var foo = 'bar';
   </script>
 
 Execute:
   AssertEqual 'javaScriptLineComment', SyntaxAt(2, 1)
-  AssertEqual 'htmlScriptTag', SyntaxAt(1, 1)
+  AssertEqual 'vueSurroundingTag', SyntaxAt(1, 1)
+  AssertEqual 'javaScriptIdentifier', SyntaxAt(3, 1)
 
 
 Given vue (Script tag with misc. attributes and newline):
@@ -55,11 +57,13 @@ Execute:
 Given vue (CSS region without lang attribute):
   <style>
   /**/
+  body { }
   </style>
 
 Execute:
   AssertEqual 'cssComment', SyntaxAt(2, 1)
-  AssertEqual 'htmlTag', SyntaxAt(1, 1)
+  AssertEqual 'vueSurroundingTag', SyntaxAt(1, 1)
+  AssertEqual 'cssTagName', SyntaxAt(3, 1)
 
 #
 # Pug
