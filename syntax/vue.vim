@@ -40,13 +40,30 @@ function! s:register_language(language, tag, ...)
   endif
 endfunction
 
-if !exists("g:vue_disable_pre_processors") || !g:vue_disable_pre_processors
+function! s:register_tag(language, tag)
+  if s:syntax_available(a:language)
+    execute 'syntax include @' . a:language . ' syntax/' . a:language . '.vim'
+    unlet! b:current_syntax
+    execute 'syntax region vue_' . a:language
+          \ 'keepend'
+          \ 'start=/<' . a:tag . '>/'
+          \ 'end="</' . a:tag . '>"me=s-1'
+          \ 'contains=@' . a:language . ',vueSurroundingTag'
+          \ 'fold'
+  endif
+endfunction
+
+if !exists('g:vue_disable_pre_processors') || !g:vue_disable_pre_processors
+  call s:register_tag('javascript', 'script')
+  call s:register_tag('css', 'style')
   call s:register_language('pug', 'template', s:attr('lang', '\%(pug\|jade\)'))
   call s:register_language('slm', 'template')
   call s:register_language('handlebars', 'template')
   call s:register_language('haml', 'template')
   call s:register_language('typescript', 'script', '\%(lang=\("\|''\)[^\1]*\(ts\|typescript\)[^\1]*\1\|ts\)')
   call s:register_language('coffee', 'script')
+  call s:register_language('javascript', 'script')
+  call s:register_language('css', 'style')
   call s:register_language('stylus', 'style')
   call s:register_language('sass', 'style')
   call s:register_language('scss', 'style')
