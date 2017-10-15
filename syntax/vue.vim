@@ -53,6 +53,9 @@ if !exists("g:vue_disable_pre_processors") || !g:vue_disable_pre_processors
   call s:register_language('less', 'style')
 endif
 
+syntax include @javascript syntax/javascript.vim
+syn region vue_javascript keepend start=+<script>+ end=+</script>+ contains=@javascript,vueSurroundingTag fold
+
 syn region  vueSurroundingTag   contained start=+<\(script\|style\|template\)+ end=+>+ fold contains=htmlTagN,htmlString,htmlArg,htmlValue,htmlTagError,htmlEvent
 syn keyword htmlSpecialTagName  contained template
 syn keyword htmlArg             contained scoped ts
