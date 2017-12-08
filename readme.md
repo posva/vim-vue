@@ -94,6 +94,10 @@ autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
 :warning: This may cause problems, because some plugins will then treat the
 whole buffer as html/javascript/css instead of only the part inside the tags.
 
+### How can I use caw.vim in Vue files?
+
+caw.vim already has support built in for file context through [context_filetype.vim](https://github.com/Shougo/context_filetype.vim). Just install both plugins and context-aware commenting will work in most files. The fenced code is detected by predefined regular expressions.
+
 ### How can I use NERDCommenter in Vue files?
 
 <details>
