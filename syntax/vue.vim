@@ -46,6 +46,7 @@ if !exists("g:vue_disable_pre_processors") || !g:vue_disable_pre_processors
   call s:register_language('handlebars', 'template')
   call s:register_language('haml', 'template')
   call s:register_language('typescript', 'script', '\%(lang=\("\|''\)[^\1]*\(ts\|typescript\)[^\1]*\1\|ts\)')
+  call s:register_language('python', 'script', '\%(lang=\("\|''\)[^\1]*\(py\|python\)[^\1]*\1\|py\)')
   call s:register_language('coffee', 'script')
   call s:register_language('stylus', 'style')
   call s:register_language('sass', 'style')
