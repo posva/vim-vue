@@ -33,7 +33,8 @@ git clone https://github.com/posva/vim-vue.git ~/.vim/pack/plugins/start/vim-vue
 
 Currently only `eslint` is available. Please make sure
 [eslint](http://eslint.org/) and
-[eslint-plugin-vue](https://github.com/vuejs/eslint-plugin-vue) are installed:
+[eslint-plugin-vue](https://github.com/vuejs/eslint-plugin-vue) are installed
+and properly [configured](https://github.com/vuejs/eslint-plugin-vue#rocket-usage):
 
 ```bash
 npm i -g eslint eslint-plugin-vue
