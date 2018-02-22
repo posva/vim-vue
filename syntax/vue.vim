@@ -7,6 +7,8 @@ if exists("b:current_syntax")
 endif
 
 runtime! syntax/html.vim
+syntax clear htmlTagName
+syntax match htmlTagName contained "\<[a-zA-Z0-9:-]*\>"
 unlet! b:current_syntax
 
 ""

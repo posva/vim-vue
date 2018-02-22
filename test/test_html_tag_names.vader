@@ -1,0 +1,13 @@
+Given vue (Arbitrary HTML tag names):
+  <list></list>
+  <FormItem></FormItem>
+  <form-item><form-item>
+  <h1></h1>
+  <foo:bar></foo:bar>
+
+Execute (The valid combinations get highlighted, since Vue does not enforce the W3C rules for custom tag names):
+  AssertEqual 'htmlTagName', SyntaxOf('list')
+  AssertEqual 'htmlTagName', SyntaxOf('FormItem')
+  AssertEqual 'htmlTagName', SyntaxOf('form-item')
+  AssertEqual 'htmlTagName', SyntaxOf('h1')
+  AssertEqual 'htmlTagName', SyntaxOf('foo:bar')
