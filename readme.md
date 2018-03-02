@@ -45,6 +45,10 @@ npm i -g eslint eslint-plugin-vue
 If your language is not getting highlighted open an issue or a PR with the fix.
 You only need to add a line to the `syntax/vue.vim` file.
 
+Don't forget to write [Vader](https://github.com/junegunn/vader.vim) tests for
+the code you write. You can run the tests by executing `make test` in the
+terminal.
+
 ## FAQ
 
 ### Where is Jade?
