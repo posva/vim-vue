@@ -99,10 +99,8 @@ caw.vim features built-in support for file context through [context_filetype.vim
 
 <details>
 <summary>
-
 To use NERDCommenter with Vue files, you can use its "hooks" feature to
-temporarily change the filetype. _Click for an example._
-
+temporarily change the filetype. <em>Click for an example.</em>
 </summary>
 
 ```vim
