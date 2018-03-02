@@ -54,26 +54,14 @@ Therefore you have to replace all your `jade` occurrences with `pug`. The new
 plugin for `pug` can be found on [the same repository](https://github.com/digitaltoad/vim-pug)
 (the name has already been updated).
 
-### Typescript support
-
-You can use typescript by adding one of the following attributes/values to
-your component's script tag:
-
-```html
-<script ts></script>
-<script lang="ts"></script>
-<script lang="typescript"></script>
-```
-
-Choose one that works with your module bundler
-
 ### My syntax highlighting stops working randomly
 
 This is because Vim tries to highlight text in an efficient way. Especially in
 files that include multiple languages, it can get confused. To work around
 this, you can run `:syntax sync fromstart` when it happens.
 
-You can also setup an autocmd for this:
+You can also setup an autocmd for this, so that every time a Vue file is
+opened, `:syntax sync fromstart` will be executed pre-emptively:
 
 ```vim
 autocmd FileType vue syntax sync fromstart
@@ -85,8 +73,8 @@ for more details.
 ### How can I use existing configuration/plugins in Vue files?
 
 If you already have some configuration for filetypes like html, css and
-javascript (e.g. linters, completion), you can use them in .vue files by
-setting compound filetypes like this:
+javascript (e.g. linters, completion), an easy way to use them in Vue files is
+by setting compound filetypes like this:
 
 ```vim
 autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
@@ -94,19 +82,23 @@ autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
 
 :warning: This may cause problems, because some plugins will then treat the
 whole buffer as html/javascript/css instead of only the part inside the tags.
+Ideally, you should configure everything that you want to use in Vue files
+individually.
 
 ### How to use commenting functionality with multiple languages in Vue files?
 
-#### caw.vim
+#### [caw.vim](https://github.com/tyru/caw.vim)
 
 caw.vim features built-in support for file context through [context_filetype.vim](https://github.com/Shougo/context_filetype.vim). Just install both plugins and context-aware commenting will work in most files. The fenced code is detected by predefined regular expressions.
 
-#### NERDCommenter
+#### [NERDCommenter](https://github.com/scrooloose/nerdcommenter)
 
 <details>
 <summary>
+
 To use NERDCommenter with Vue files, you can use its "hooks" feature to
-temporarily change the filetype. Click for an example.
+temporarily change the filetype. _Click for an example._
+
 </summary>
 
 ```vim
@@ -133,6 +125,6 @@ endfunction
 
 </details>
 
-### _Vim gets slows down when using this plugin_ How can I fix that?
+### _Vim slows down when using this plugin_ How can I fix that?
 
 Add `let g:vue_disable_pre_processors=1` in your .vimrc to disable checking for prepocessors. When checking for preprocessor languages, multiple syntax highlighting checks are done, which can slow down vim. This variable prevents vim-vue from supporting **every** pre-processor language highlighting.
