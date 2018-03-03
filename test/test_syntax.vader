@@ -90,10 +90,15 @@ Execute:
 Given vue (SCSS region):
   <style lang="scss">
   $green: #42b983;
+
+  button {
+    background-color: $green;
+  }
   </style>
 
 Execute:
-  AssertEqual 'scssVariable', SyntaxAt(2, 1)
+  AssertEqual 'scssVariable', SyntaxOf('$green', 1)
+  AssertEqual 'scssVariable', SyntaxOf('$green', 2)
   AssertEqual 'vueSurroundingTag', SyntaxAt(1, 1)
 
 #
