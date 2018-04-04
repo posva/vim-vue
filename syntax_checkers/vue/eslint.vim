@@ -6,6 +6,8 @@ endif
 
 let g:loaded_syntastic_vue_eslint_checker = 1
 
+runtime! syntax_checkers/javascript/eslint.vim
+
 call g:SyntasticRegistry.CreateAndRegisterChecker({
       \   'filetype': 'vue',
       \   'name': 'eslint',
