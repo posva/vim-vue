@@ -101,6 +101,18 @@ Execute:
   AssertEqual 'scssVariable', SyntaxOf('$green', 2)
   AssertEqual 'vueSurroundingTag', SyntaxAt(1, 1)
 
+
+Given vue (SCSS region with newline after tag name):
+  <style
+    lang="scss"
+  >
+  $green: #42b983
+  </style>
+
+Execute:
+  AssertEqual 'scssVariable', SyntaxOf('$green')
+  AssertEqual 'vueSurroundingTag', SyntaxAt(1, 1)
+
 #
 # Sass
 #
