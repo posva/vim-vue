@@ -18,7 +18,7 @@ if !exists('g:no_plugin_maps') && !exists('g:no_vue_maps')
   nnoremap <silent> <buffer> ][ :call search('^</\(template\<Bar>script\<Bar>style\)', 'W')<CR>
 endif
 
-" Run only ESLint for Vue files by default.
+" Run only ESLint and stylelint for Vue files by default.
 " linters specifically for Vue can still be loaded.
-let b:ale_linter_aliases = ['vue', 'javascript']
-let b:ale_linters = ['eslint']
+let b:ale_linter_aliases = ['vue', 'javascript', 'css']
+let b:ale_linters = ['eslint', 'stylelint']
