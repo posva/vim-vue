@@ -34,7 +34,7 @@ jobs:
       - save_cache:
           paths:
             - pack
-          key: v1-dependencies-{{ checksum "Makfelie" }}
+          key: v1-dependencies-{{ checksum "Makefile" }}
 
       # run tests!
       - run: make test
