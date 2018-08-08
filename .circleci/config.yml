@@ -14,9 +14,6 @@ version: 2
 
 jobs:
   build:
-    docker:
-      - image: thinca/vim
-
     working_directory: ~/repo
 
     steps:
