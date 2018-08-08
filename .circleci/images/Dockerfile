@@ -1,3 +1,3 @@
-FROM thinca/vim:8.1.0255
+FROM thinca/vim
 
 RUN apk add make
