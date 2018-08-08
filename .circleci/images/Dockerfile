@@ -1,3 +1,4 @@
-FROM thinca/vim
+FROM alpine:3.7
+RUN apk add --no-cache make vim
 
-RUN apk add make
+# RUN add-apt-repository ppa:jonathonf/vim -y

@@ -15,7 +15,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: posva/vim-make:0.1
+      - image: posva/vim-make:0.2
 
     working_directory: ~/repo
 
