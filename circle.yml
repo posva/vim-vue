@@ -1,10 +1,40 @@
-dependencies:
-  override:
-    - sudo add-apt-repository ppa:jonathonf/vim -y
-    - sudo apt-get update
-    - sudo apt-get install vim
-    - make dependencies
+# dependencies:
+#   override:
+#     - sudo add-apt-repository ppa:jonathonf/vim -y
+#     - sudo apt-get update
+#     - sudo apt-get install vim
+#     - make dependencies
 
-test:
-  override:
-    - make test
+# test:
+#   override:
+#     - make test
+
+version: 2
+
+
+jobs:
+  build:
+    docker:
+      - image: thinca/vim
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "Makefile" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run: make dependencies
+
+      - save_cache:
+          paths:
+            - pack
+          key: v1-dependencies-{{ checksum "Makfelie" }}
+
+      # run tests!
+      - run: make test
