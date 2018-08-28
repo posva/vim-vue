@@ -21,4 +21,4 @@ endif
 " Run only ESLint for Vue files by default.
 " linters specifically for Vue can still be loaded.
 let b:ale_linter_aliases = ['vue', 'javascript']
-let b:ale_linters = ['eslint']
+let b:ale_linters = get(get(g:, 'ale_linters', {}), 'vue', ['eslint', 'vls'])
