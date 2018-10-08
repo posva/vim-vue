@@ -1,4 +1,4 @@
-" Vue cofiguration for Syntastic
+" Vue configuration for Syntastic
 
 if exists('g:loaded_syntastic_vue_eslint_checker')
   finish
