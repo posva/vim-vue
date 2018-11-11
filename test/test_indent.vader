@@ -133,3 +133,114 @@ Expect:
     font-size: 30px
     display: block
   </style>
+
+#
+# Mixed
+#
+Given vue (Mixed with default settings):
+  <template>
+  <div>
+  <template v-if="loading">
+  Loading...
+  </template>
+  </div>
+  </template>
+
+  <style>
+  body {
+  background: tomato;
+  }
+  </style>
+
+  <script>
+  export default {
+  methods: {
+  foo() {
+  //
+  }
+  }
+  }
+  </script>
+
+Do (Indent the whole buffer):
+  gg=G
+
+Expect (All sections indented):
+  <template>
+    <div>
+      <template v-if="loading">
+        Loading...
+      </template>
+    </div>
+  </template>
+
+  <style>
+  body {
+    background: tomato;
+  }
+  </style>
+
+  <script>
+  export default {
+    methods: {
+      foo() {
+        //
+      }
+    }
+  }
+  </script>
+
+
+Given vue (Mixed with custom settings):
+  <template>
+  <div>
+  <template v-if="loading">
+  Loading...
+  </template>
+  </div>
+  </template>
+
+  <style>
+  body {
+  background: tomato;
+  }
+  </style>
+
+  <script lang="python">
+  def fun():
+  if foo:
+  bar
+  </script>
+
+Execute (Customize settings, indent buffer, restore settings):
+  let backup_globals = copy(g:)
+  let g:vue_indent_languages = [
+  \   {'name': 'html', 'pairs': ['<template', '</template>']},
+  \   {'name': 'css', 'pairs': ['<style', '</style>']},
+  \   {'name': 'python', 'pairs': ['<script lang="python"', '</script>']},
+  \ ]
+  let g:vue_indent_open_close_tags = 2
+  let g:vue_indent_first_line = 0
+  normal gg=G
+  call extend(g:, backup_globals, 'force')
+
+Expect (All sections indented):
+    <template>
+  <div>
+    <template v-if="loading">
+      Loading...
+    </template>
+  </div>
+    </template>
+
+    <style>
+  body {
+    background: tomato;
+  }
+    </style>
+
+    <script lang="python">
+  def fun():
+    if foo:
+      bar
+    </script>

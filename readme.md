@@ -40,6 +40,23 @@ and properly [configured](https://github.com/vuejs/eslint-plugin-vue#rocket-usag
 npm i -g eslint eslint-plugin-vue
 ```
 
+## Configuration
+
+`g:vue_indent_languages` configures the list of languages and their
+top-level tags for indentation. See `indent/vue.vim` for the default.
+
+`g:vue_indent_first_line` configures the policy for indenting the first
+line after an open tag. It defaults to -1 which uses the autoindent
+default, i.e. the same column as the open tag. Because of the default
+behavior of the autoindenter, it will preserve existing indentation when
+reindenting, which means that you can use your preferred first line
+indentation without needing any special configuration.
+
+`g:vue_indent_open_close_tags` configures the policy for indenting
+open/close tags. It defaults to 0 which forces open/close tags for
+top-level sections in a Vue single-file component to the first column. It
+is unlikely you will want to change this.
+
 ## Contributing
 
 If your language is not getting highlighted open an issue or a PR with the fix.
@@ -73,6 +90,20 @@ autocmd FileType vue syntax sync fromstart
 
 See `:h :syn-sync-first` and [this article](http://vim.wikia.com/wiki/Fix_syntax_highlighting)
 for more details.
+
+### My indentation isn't what I expect
+
+Check `:echom string(g:vue_indent_languages)` after indenting a line to see
+what `indentexpr` is being used. For example, if you have Eclim installed
+then Vim will find its indenters, when you'd rather be using html.vim and
+vim-javascript. The fixes for these situations are case-by-case, for
+example to work around Eclim you can use:
+
+```
+let g:EclimHtmlIndentDisabled = 1
+let g:EclimCssIndentDisabled = 1
+let g:EclimJavascriptIndentDisabled = 1
+```
 
 ### How can I use existing configuration/plugins in Vue files?
 
