@@ -128,5 +128,14 @@ endfunction
 </details>
 
 ### _Vim slows down when using this plugin_ How can I fix that?
+When checking for pre-processor languages, multiple syntax highlighting checks are done, which can slow down vim. You can trim down which pre-processors to use by setting `g:vue_pre_processors` to a whitelist of languages to support:
 
-Add `let g:vue_disable_pre_processors=1` in your .vimrc to disable checking for prepocessors. When checking for preprocessor languages, multiple syntax highlighting checks are done, which can slow down vim. This variable prevents vim-vue from supporting **every** pre-processor language highlighting.
+```vim
+let g:vue_pre_processors = ['pug', 'scss']
+```
+
+Or alternatively, disable pre-processor languages altogether:
+
+```vim
+let g:vue_disable_pre_processors = 1
+```
