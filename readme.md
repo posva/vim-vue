@@ -91,6 +91,10 @@ individually.
 
 ### How to use commenting functionality with multiple languages in Vue files?
 
+### [tcomment](https://github.com/tomtom/tcomment_vim)
+
+tcomment supports Vue files with multiple languages out of the box.
+
 #### [caw.vim](https://github.com/tyru/caw.vim)
 
 caw.vim features built-in support for file context through [context_filetype.vim](https://github.com/Shougo/context_filetype.vim). Just install both plugins and context-aware commenting will work in most files. The fenced code is detected by predefined regular expressions.
