@@ -21,6 +21,7 @@ let s:languages = [
       \   { 'name': 'css', 'pairs': ['<style', '</style>'] },
       \   { 'name': 'coffee', 'pairs': ['<script lang="coffee"', '</script>'] },
       \   { 'name': 'javascript', 'pairs': ['<script', '</script>'] },
+      \   { 'name': 'json', 'pairs': ['<i18n', '</i18n>'] },
       \ ]
 
 for s:language in s:languages
