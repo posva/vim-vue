@@ -1,49 +1,25 @@
 #
 # HTML
 #
-Given vue (An unindented html template):
-  <template>
+Given svelte (An unindented html template):
   <div>
   Hello
   </div>
-  </template>
 
 Do (Indent the whole buffer):
   gg=G
 
 Expect (The html template got indented):
-  <template>
-    <div>
-      Hello
-    </div>
-  </template>
+  <div>
+    Hello
+  </div>
 
 
-Given vue (Template tag inside a template):
-  <template>
-    <div>
-      <template v-if="loading">
-        Loading...
-      </template>
-    </div>
-  </template>
-
-Do (Indent the whole buffer):
-  gg=G
-
-Expect (It didn't get unindented):
-  <template>
-    <div>
-      <template v-if="loading">
-        Loading...
-      </template>
-    </div>
-  </template>
 
 #
 # JavaScript
 #
-Given vue (An unindented JavaScript region):
+Given svelte (An unindented JavaScript region):
   <script>
   export default {
   methods: {
@@ -57,7 +33,7 @@ Given vue (An unindented JavaScript region):
 Do (Indent the whole buffer):
   gg=G
 
-Expect vue (The JavaScript region got indented):
+Expect svelte (The JavaScript region got indented):
   <script>
   export default {
     methods: {
@@ -71,7 +47,7 @@ Expect vue (The JavaScript region got indented):
 #
 # CSS
 #
-Given vue (An unindented css region):
+Given svelte (An unindented css region):
   <style>
   body {
   background: tomato;
@@ -81,7 +57,7 @@ Given vue (An unindented css region):
 Do (Indent the whole buffer):
   gg=G
 
-Expect vue (The css region got indented):
+Expect svelte (The css region got indented):
   <style>
   body {
     background: tomato;
@@ -89,29 +65,9 @@ Expect vue (The css region got indented):
   </style>
 
 #
-# Pug
-#
-Given vue (Empty Pug region):
-  <template lang="pug">
-  </template>
-
-Do (Insert list items):
-  o
-  ul\<CR>
-  li Item A\<CR>
-  li Item B
-
-Expect:
-  <template lang="pug">
-  ul
-    li Item A
-    li Item B
-  </template>
-
-#
 # Stylus
 #
-Given vue (Empty Stylus region):
+Given svelte (Empty Stylus region):
   <style lang="stylus">
   </style>
 

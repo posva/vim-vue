@@ -1,33 +1,19 @@
 #
 # HTML
 #
-Given vue (HTML template without lang attribute):
-  <template>
-    <div></div>
-  </template>
+Given svelte (HTML template without lang attribute):
+  <div></div>
 
 Execute:
-  AssertEqual 'htmlTag', SyntaxAt(2, 3)
   AssertEqual 'htmlTag', SyntaxAt(1, 1)
-  AssertEqual 'htmlSpecialTagName', SyntaxAt(1, 2)
+  AssertEqual 'htmlTagName', SyntaxAt(1, 2)
 
 
-Given vue (Template tag inside a template):
-  <template>
-    <div>
-      <template v-if="loading">
-        Loading...
-      </template>
-    </div>
-  </template>
-
-Execute (Syntax doesn't stop at the first closing template tag):
-  AssertEqual 'htmlEndTag', SyntaxAt(6, 3)
 
 #
 # JavaScript
 #
-Given vue:
+Given svelte:
   <script>
   //
   </script>
@@ -37,7 +23,7 @@ Execute:
   AssertEqual 'htmlScriptTag', SyntaxAt(1, 1)
 
 
-Given vue (Script tag with misc. attributes and newline):
+Given svelte (Script tag with misc. attributes and newline):
   <script type="text/babel"
           lang="babel"
   >
@@ -52,7 +38,7 @@ Execute:
 #
 # CSS
 #
-Given vue (CSS region without lang attribute):
+Given svelte (CSS region without lang attribute):
   <style>
   /**/
   </style>
@@ -62,32 +48,9 @@ Execute:
   AssertEqual 'htmlTag', SyntaxAt(1, 1)
 
 #
-# Pug
-#
-Given vue (Pug template):
-  <template lang="pug">
-  p #{name}'s Pug source code!
-  </template>
-
-Execute:
-  AssertEqual 'htmlTagName', SyntaxAt(2, 1)
-  AssertEqual 'pugInterpolationDelimiter', SyntaxAt(2, 3)
-  AssertEqual 'vueSurroundingTag', SyntaxAt(1, 1)
-
-
-Given vue (Pug template using their former name):
-  <template lang="jade">
-  p #{name}'s Pug source code!
-  </template>
-
-Execute:
-  AssertEqual 'htmlTagName', SyntaxAt(2, 1)
-  AssertEqual 'pugInterpolationDelimiter', SyntaxAt(2, 3)
-
-#
 # SCSS
 #
-Given vue (SCSS region):
+Given svelte (SCSS region):
   <style lang="scss">
   $green: #42b983;
 
@@ -99,10 +62,10 @@ Given vue (SCSS region):
 Execute:
   AssertEqual 'scssVariable', SyntaxOf('$green', 1)
   AssertEqual 'scssVariable', SyntaxOf('$green', 2)
-  AssertEqual 'vueSurroundingTag', SyntaxAt(1, 1)
+  AssertEqual 'svelteSurroundingTag', SyntaxAt(1, 1)
 
 
-Given vue (SCSS region with newline after tag name):
+Given svelte (SCSS region with newline after tag name):
   <style
     lang="scss"
   >
@@ -111,22 +74,22 @@ Given vue (SCSS region with newline after tag name):
 
 Execute:
   AssertEqual 'scssVariable', SyntaxOf('$green')
-  AssertEqual 'vueSurroundingTag', SyntaxAt(1, 1)
+  AssertEqual 'svelteSurroundingTag', SyntaxAt(1, 1)
 
 #
 # Sass
 #
-Given vue (Sass region):
+Given svelte (Sass region):
   <style lang="sass">
   $green: #42b983
   </style>
 
 Execute:
   AssertEqual 'sassVariable', SyntaxAt(2, 1)
-  AssertEqual 'vueSurroundingTag', SyntaxAt(1, 1)
+  AssertEqual 'svelteSurroundingTag', SyntaxAt(1, 1)
 
 
-Given vue (Sass region with modifier):
+Given svelte (Sass region with modifier):
   <style lang="sass?indentedSyntax">
   $green: #42b983
   </style>
@@ -137,7 +100,7 @@ Execute:
 #
 # Stylus
 #
-Given vue (Sass region):
+Given svelte (Sass region):
   <style lang="stylus">
   @import 'variables'
 
@@ -148,23 +111,23 @@ Given vue (Sass region):
 Execute:
   AssertEqual 'stylusImport', SyntaxAt(2, 1)
   AssertEqual 'cssTagName', SyntaxAt(4, 1)
-  AssertEqual 'vueSurroundingTag', SyntaxAt(1, 1)
+  AssertEqual 'svelteSurroundingTag', SyntaxAt(1, 1)
 
 
 #
 # TypeScript
 #
-Given vue (Typescript region using "ts" as name):
+Given svelte (Typescript region using "ts" as name):
   <script lang="ts">
   @Component({})
   </script>
 
 Execute:
   AssertEqual 'typescriptDecorators', SyntaxAt(2, 1)
-  AssertEqual 'vueSurroundingTag', SyntaxAt(1, 1)
+  AssertEqual 'svelteSurroundingTag', SyntaxAt(1, 1)
 
 
-Given vue (Typescript region using "typescript" as name):
+Given svelte (Typescript region using "typescript" as name):
   <script lang="typescript">
   @Component({})
   </script>
@@ -173,7 +136,7 @@ Execute:
   AssertEqual 'typescriptDecorators', SyntaxAt(2, 1)
 
 
-Given vue (Typescript region using "ts" attribute):
+Given svelte (Typescript region using "ts" attribute):
   <script ts>
   @Component({})
   </script>

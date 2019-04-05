@@ -1,4 +1,4 @@
-Given vue (Arbitrary HTML tag names):
+Given svelte (Arbitrary HTML tag names):
   <list></list>
   <FormItem></FormItem>
   <form-item><form-item>

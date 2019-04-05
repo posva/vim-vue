@@ -1,5 +1,5 @@
 " Vim indent file
-" Language: Vue.js
+" Language: Svelte
 " Maintainer: Eduardo San Martin Morote
 " Author: Adriaan Zonnenberg
 
@@ -34,13 +34,13 @@ let s:html_indent = s:get_indentexpr('html')
 
 let b:did_indent = 1
 
-setlocal indentexpr=GetVueIndent()
+setlocal indentexpr=GetSvelteIndent()
 
-if exists('*GetVueIndent')
+if exists('*GetSvelteIndent')
   finish
 endif
 
-function! GetVueIndent()
+function! GetSvelteIndent()
   for language in s:languages
     let opening_tag_line = searchpair(language.pairs[0], '', language.pairs[1], 'bWr')
 

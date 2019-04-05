@@ -1,6 +1,6 @@
 " Vim syntax file
-" Language: Vue.js
-" Maintainer: Eduardo San Martin Morote
+" Language: Svelte
+" Maintainer: Ed Morrish
 
 if exists("b:current_syntax")
   finish
@@ -33,16 +33,16 @@ function! s:register_language(language, tag, ...)
   if s:syntax_available(a:language)
     execute 'syntax include @' . a:language . ' syntax/' . a:language . '.vim'
     unlet! b:current_syntax
-    execute 'syntax region vue_' . a:language
+    execute 'syntax region svelte_' . a:language
           \ 'keepend'
           \ 'start=/<' . a:tag . '\>\_[^>]*' . attr . '\_[^>]*>/'
           \ 'end="</' . a:tag . '>"me=s-1'
-          \ 'contains=@' . a:language . ',vueSurroundingTag'
+          \ 'contains=@' . a:language . ',svelteSurroundingTag'
           \ 'fold'
   endif
 endfunction
 
-if !exists("g:vue_disable_pre_processors") || !g:vue_disable_pre_processors
+if !exists("g:svelte_disable_pre_processors") || !g:svelte_disable_pre_processors
   call s:register_language('less', 'style')
   call s:register_language('pug', 'template', s:attr('lang', '\%(pug\|jade\)'))
   call s:register_language('slm', 'template')
@@ -55,9 +55,9 @@ if !exists("g:vue_disable_pre_processors") || !g:vue_disable_pre_processors
   call s:register_language('scss', 'style')
 endif
 
-syn region  vueSurroundingTag   contained start=+<\(script\|style\|template\)+ end=+>+ fold contains=htmlTagN,htmlString,htmlArg,htmlValue,htmlTagError,htmlEvent
+syn region  svelteSurroundingTag   contained start=+<\(script\|style\)+ end=+>+ fold contains=htmlTagN,htmlString,htmlArg,htmlValue,htmlTagError,htmlEvent
 syn keyword htmlSpecialTagName  contained template
 syn keyword htmlArg             contained scoped ts
 syn match   htmlArg "[@v:][-:.0-9_a-z]*\>" contained
 
-let b:current_syntax = "vue"
+let b:current_syntax = "svelte"
