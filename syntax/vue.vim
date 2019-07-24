@@ -6,6 +6,11 @@ if exists("b:current_syntax")
   finish
 endif
 
+" Convert deprecated variable to new one
+if exists('g:vue_disable_pre_processors') && g:vue_disable_pre_processors
+  let g:vue_pre_processors = []
+endif
+
 runtime! syntax/html.vim
 syntax clear htmlTagName
 syntax match htmlTagName contained "\<[a-zA-Z0-9:-]*\>"
@@ -59,19 +64,17 @@ for item in s:language_config
   let s:language_dict[item.lang] = item.args
 endfor
 
-if !exists("g:vue_disable_pre_processors") || !g:vue_disable_pre_processors
-  if exists("g:vue_pre_processors")
-    let pre_processors = g:vue_pre_processors
-  else
-    let pre_processors = map(copy(s:language_config), {k, v -> v.lang})
-  endif
-
-  for language in pre_processors
-    if has_key(s:language_dict, language)
-      call call("s:register_language", get(s:language_dict, language))
-    endif
-  endfor
+if exists("g:vue_pre_processors")
+  let pre_processors = g:vue_pre_processors
+else
+  let pre_processors = map(copy(s:language_config), {k, v -> v.lang})
 endif
+
+for language in pre_processors
+  if has_key(s:language_dict, language)
+    call call("s:register_language", get(s:language_dict, language))
+  endif
+endfor
 
 syn region  vueSurroundingTag   contained start=+<\(script\|style\|template\)+ end=+>+ fold contains=htmlTagN,htmlString,htmlArg,htmlValue,htmlTagError,htmlEvent
 syn keyword htmlSpecialTagName  contained template

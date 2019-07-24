@@ -119,8 +119,8 @@ When checking for pre-processor languages, multiple syntax highlighting checks a
 let g:vue_pre_processors = ['pug', 'scss']
 ```
 
-Or alternatively, disable pre-processor languages altogether:
+To disable pre-processor languages altogether (only highlight HTML, JavaScript, and CSS):
 
 ```vim
-let g:vue_disable_pre_processors = 1
+let g:vue_pre_processors = []
 ```
