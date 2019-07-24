@@ -124,3 +124,5 @@ To disable pre-processor languages altogether (only highlight HTML, JavaScript, 
 ```vim
 let g:vue_pre_processors = []
 ```
+
+Available pre-processors are: coffee, haml, handlebars, less, pug, sass, scss, slm, stylus, typescript
