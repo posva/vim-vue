@@ -42,17 +42,35 @@ function! s:register_language(language, tag, ...)
   endif
 endfunction
 
+let s:language_config = [
+      \ {'lang': 'less',       'args': ['less', 'style']},
+      \ {'lang': 'pug',        'args': ['pug', 'template', s:attr('lang', '\%(pug\|jade\)')]},
+      \ {'lang': 'slm',        'args': ['slm', 'template']},
+      \ {'lang': 'handlebars', 'args': ['handlebars', 'template']},
+      \ {'lang': 'haml',       'args': ['haml', 'template']},
+      \ {'lang': 'typescript', 'args': ['typescript', 'script', '\%(lang=\("\|''\)[^\1]*\(ts\|typescript\)[^\1]*\1\|ts\)']},
+      \ {'lang': 'coffee',     'args': ['coffee', 'script']},
+      \ {'lang': 'stylus',     'args': ['stylus', 'style']},
+      \ {'lang': 'sass',       'args': ['sass', 'style']},
+      \ {'lang': 'scss',       'args': ['scss', 'style']},
+      \ ]
+let s:language_dict = {}
+for item in s:language_config
+  let s:language_dict[item.lang] = item.args
+endfor
+
 if !exists("g:vue_disable_pre_processors") || !g:vue_disable_pre_processors
-  call s:register_language('less', 'style')
-  call s:register_language('pug', 'template', s:attr('lang', '\%(pug\|jade\)'))
-  call s:register_language('slm', 'template')
-  call s:register_language('handlebars', 'template')
-  call s:register_language('haml', 'template')
-  call s:register_language('typescript', 'script', '\%(lang=\("\|''\)[^\1]*\(ts\|typescript\)[^\1]*\1\|ts\)')
-  call s:register_language('coffee', 'script')
-  call s:register_language('stylus', 'style')
-  call s:register_language('sass', 'style')
-  call s:register_language('scss', 'style')
+  if exists("g:vue_pre_processors")
+    let pre_processors = g:vue_pre_processors
+  else
+    let pre_processors = map(copy(s:language_config), {k, v -> v.lang})
+  endif
+
+  for language in pre_processors
+    if has_key(s:language_dict, language)
+      call call("s:register_language", get(s:language_dict, language))
+    endif
+  endfor
 endif
 
 syn region  vueSurroundingTag   contained start=+<\(script\|style\|template\)+ end=+>+ fold contains=htmlTagN,htmlString,htmlArg,htmlValue,htmlTagError,htmlEvent
