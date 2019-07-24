@@ -28,51 +28,33 @@ function! s:syntax_available(language)
   return !empty(globpath(&runtimepath, 'syntax/' . a:language . '.vim'))
 endfunction
 
-""
-" Register {language} for a given {tag}. If [attr_override] is given and not
-" empty, it will be used for the attribute pattern.
-function! s:register_language(language, tag, ...)
-  let attr_override = a:0 ? a:1 : ''
-  let attr = !empty(attr_override) ? attr_override : s:attr('lang', a:language)
-
-  if s:syntax_available(a:language)
-    execute 'syntax include @' . a:language . ' syntax/' . a:language . '.vim'
-    unlet! b:current_syntax
-    execute 'syntax region vue_' . a:language
-          \ 'keepend'
-          \ 'start=/<' . a:tag . '\>\_[^>]*' . attr . '\_[^>]*>/'
-          \ 'end="</' . a:tag . '>"me=s-1'
-          \ 'contains=@' . a:language . ',vueSurroundingTag'
-          \ 'fold'
-  endif
-endfunction
-
-let s:language_config = [
-      \ {'lang': 'less',       'args': ['less', 'style']},
-      \ {'lang': 'pug',        'args': ['pug', 'template', s:attr('lang', '\%(pug\|jade\)')]},
-      \ {'lang': 'slm',        'args': ['slm', 'template']},
-      \ {'lang': 'handlebars', 'args': ['handlebars', 'template']},
-      \ {'lang': 'haml',       'args': ['haml', 'template']},
-      \ {'lang': 'typescript', 'args': ['typescript', 'script', '\%(lang=\("\|''\)[^\1]*\(ts\|typescript\)[^\1]*\1\|ts\)']},
-      \ {'lang': 'coffee',     'args': ['coffee', 'script']},
-      \ {'lang': 'stylus',     'args': ['stylus', 'style']},
-      \ {'lang': 'sass',       'args': ['sass', 'style']},
-      \ {'lang': 'scss',       'args': ['scss', 'style']},
+let s:languages = [
+      \ {'name': 'less',       'tag': 'style'},
+      \ {'name': 'pug',        'tag': 'template', 'attr_pattern': s:attr('lang', '\%(pug\|jade\)')},
+      \ {'name': 'slm',        'tag': 'template'},
+      \ {'name': 'handlebars', 'tag': 'template'},
+      \ {'name': 'haml',       'tag': 'template'},
+      \ {'name': 'typescript', 'tag': 'script', 'attr_pattern': '\%(lang=\("\|''\)[^\1]*\(ts\|typescript\)[^\1]*\1\|ts\)'},
+      \ {'name': 'coffee',     'tag': 'script'},
+      \ {'name': 'stylus',     'tag': 'style'},
+      \ {'name': 'sass',       'tag': 'style'},
+      \ {'name': 'scss',       'tag': 'style'},
       \ ]
-let s:language_dict = {}
-for item in s:language_config
-  let s:language_dict[item.lang] = item.args
-endfor
 
-if exists("g:vue_pre_processors")
-  let pre_processors = g:vue_pre_processors
-else
-  let pre_processors = map(copy(s:language_config), {k, v -> v.lang})
-endif
+for s:language in s:languages
+  if !exists("g:vue_pre_processors") || index(g:vue_pre_processors, s:language.name) != -1
+    let s:attr_pattern = has_key(s:language, 'attr_pattern') ? s:language.attr_pattern : s:attr('lang', s:language.name)
 
-for language in pre_processors
-  if has_key(s:language_dict, language)
-    call call("s:register_language", get(s:language_dict, language))
+    if s:syntax_available(s:language.name)
+      execute 'syntax include @' . s:language.name . ' syntax/' . s:language.name . '.vim'
+      unlet! b:current_syntax
+      execute 'syntax region vue_' . s:language.name
+            \ 'keepend'
+            \ 'start=/<' . s:language.tag . '\>\_[^>]*' . s:attr_pattern . '\_[^>]*>/'
+            \ 'end="</' . s:language.tag . '>"me=s-1'
+            \ 'contains=@' . s:language.name . ',vueSurroundingTag'
+            \ 'fold'
+    endif
   endif
 endfor
 

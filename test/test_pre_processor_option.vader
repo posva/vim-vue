@@ -1,0 +1,15 @@
+Execute (enable only scss preprocessor):
+  let g:vue_pre_processors = ['typescript']
+
+Given vue:
+  <template lang="pug">
+    .some-class
+  </template>
+  <script lang="typescript">
+  @Component({})
+  </script>
+
+Execute (only scss is highlighted):
+  Assert SyntaxOf('.some-class') !~# '^pug', "pug shouldn't be highlighted"
+  Assert SyntaxOf('@Component({})') =~# '^typescript', "typescript should be highlighted"
+  unlet g:vue_pre_processors
