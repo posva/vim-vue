@@ -76,7 +76,7 @@ for more details.
 
 ### How to use commenting functionality with multiple languages in Vue files?
 
-### [tcomment](https://github.com/tomtom/tcomment_vim)
+#### [tcomment](https://github.com/tomtom/tcomment_vim)
 
 tcomment has some support Vue files with multiple languages, without any extra configuration.
 
