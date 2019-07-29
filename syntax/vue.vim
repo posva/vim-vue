@@ -22,10 +22,21 @@ function! s:attr(name, value)
   return a:name . '=\("\|''\)[^\1]*' . a:value . '[^\1]*\1'
 endfunction
 
-""
-" Check whether a syntax file for a given {language} exists.
-function! s:syntax_available(language)
-  return !empty(globpath(&runtimepath, 'syntax/' . a:language . '.vim'))
+function! s:should_register(language, start_pattern)
+  " Check whether a syntax file for {language} exists
+  if empty(globpath(&runtimepath, 'syntax/' . a:language . '.vim'))
+    return 0
+  endif
+
+  if exists('g:vue_pre_processors')
+    if type(g:vue_pre_processors) == v:t_list
+      return index(g:vue_pre_processors, s:language.name) != -1
+    elseif g:vue_pre_processors is# 'auto'
+      return search(a:start_pattern, 'n') != 0
+    endif
+  endif
+
+  return 1
 endfunction
 
 let s:languages = [
@@ -42,19 +53,18 @@ let s:languages = [
       \ ]
 
 for s:language in s:languages
-  if !exists("g:vue_pre_processors") || index(g:vue_pre_processors, s:language.name) != -1
-    let s:attr_pattern = has_key(s:language, 'attr_pattern') ? s:language.attr_pattern : s:attr('lang', s:language.name)
+  let s:attr_pattern = has_key(s:language, 'attr_pattern') ? s:language.attr_pattern : s:attr('lang', s:language.name)
+  let s:start_pattern = '<' . s:language.tag . '\>\_[^>]*' . s:attr_pattern . '\_[^>]*>'
 
-    if s:syntax_available(s:language.name)
-      execute 'syntax include @' . s:language.name . ' syntax/' . s:language.name . '.vim'
-      unlet! b:current_syntax
-      execute 'syntax region vue_' . s:language.name
-            \ 'keepend'
-            \ 'start=/<' . s:language.tag . '\>\_[^>]*' . s:attr_pattern . '\_[^>]*>/'
-            \ 'end="</' . s:language.tag . '>"me=s-1'
-            \ 'contains=@' . s:language.name . ',vueSurroundingTag'
-            \ 'fold'
-    endif
+  if s:should_register(s:language.name, s:start_pattern)
+    execute 'syntax include @' . s:language.name . ' syntax/' . s:language.name . '.vim'
+    unlet! b:current_syntax
+    execute 'syntax region vue_' . s:language.name
+          \ 'keepend'
+          \ 'start=/' . s:start_pattern . '/'
+          \ 'end="</' . s:language.tag . '>"me=s-1'
+          \ 'contains=@' . s:language.name . ',vueSurroundingTag'
+          \ 'fold'
   endif
 endfor
 
