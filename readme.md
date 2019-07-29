@@ -93,7 +93,7 @@ individually.
 
 ### [tcomment](https://github.com/tomtom/tcomment_vim)
 
-tcomment supports Vue files with multiple languages out of the box.
+tcomment has some support Vue files with multiple languages, without any extra configuration.
 
 #### [caw.vim](https://github.com/tyru/caw.vim)
 
