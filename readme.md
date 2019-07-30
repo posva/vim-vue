@@ -78,7 +78,7 @@ for more details.
 
 #### [tcomment](https://github.com/tomtom/tcomment_vim)
 
-tcomment has some support Vue files with multiple languages, without any extra configuration.
+tcomment has some support for Vue files with multiple languages, without any extra configuration.
 
 #### [caw.vim](https://github.com/tyru/caw.vim)
 
