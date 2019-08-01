@@ -130,3 +130,9 @@ let g:vue_pre_processors = []
 ```
 
 Available pre-processors are: coffee, haml, handlebars, less, pug, sass, scss, slm, stylus, typescript
+
+When `g:vue_pre_processors` is set to 'detect_on_enter' instead of a list, vim-vue will detect the pre-processors used when a file is opened, and load only their syntax files.
+
+```vim
+let g:vue_pre_processors = 'detect_on_enter'
+```

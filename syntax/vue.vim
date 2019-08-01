@@ -31,7 +31,7 @@ function! s:should_register(language, start_pattern)
   if exists('g:vue_pre_processors')
     if type(g:vue_pre_processors) == v:t_list
       return index(g:vue_pre_processors, s:language.name) != -1
-    elseif g:vue_pre_processors is# 'auto'
+    elseif g:vue_pre_processors is# 'detect_on_enter'
       return search(a:start_pattern, 'n') != 0
     endif
   endif
