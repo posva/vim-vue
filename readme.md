@@ -58,22 +58,6 @@ Therefore you have to replace all your `jade` occurrences with `pug`. The new
 plugin for `pug` can be found on [the same repository](https://github.com/digitaltoad/vim-pug)
 (the name has already been updated).
 
-### My syntax highlighting stops working randomly
-
-This is because Vim tries to highlight text in an efficient way. Especially in
-files that include multiple languages, it can get confused. To work around
-this, you can run `:syntax sync fromstart` when it happens.
-
-You can also setup an autocmd for this, so that every time a Vue file is
-opened, `:syntax sync fromstart` will be executed pre-emptively:
-
-```vim
-autocmd FileType vue syntax sync fromstart
-```
-
-See `:h :syn-sync-first` and [this article](http://vim.wikia.com/wiki/Fix_syntax_highlighting)
-for more details.
-
 ### How to use commenting functionality with multiple languages in Vue files?
 
 #### [tcomment](https://github.com/tomtom/tcomment_vim)

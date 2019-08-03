@@ -73,4 +73,6 @@ syn keyword htmlSpecialTagName  contained template
 syn keyword htmlArg             contained scoped ts
 syn match   htmlArg "[@v:][-:.0-9_a-z]*\>" contained
 
+syntax sync fromstart
+
 let b:current_syntax = "vue"
