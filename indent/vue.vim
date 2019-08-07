@@ -9,7 +9,13 @@ endif
 
 function! s:get_indentexpr(language)
   unlet! b:did_indent
-  execute 'runtime! indent/' . a:language . '.vim'
+  let path = ""
+  if exists('g:vim_vue_indent_paths') && has_key(g:vim_vue_indent_paths, a:language)
+    let path = g:vim_vue_indent_paths[a:language]
+  else
+    let path = '/indent/' . a:language . '.vim'
+  endif
+  execute 'runtime! ' . path
   return &indentexpr
 endfunction
 
@@ -21,6 +27,7 @@ let s:languages = [
       \   { 'name': 'css', 'pairs': ['<style', '</style>'] },
       \   { 'name': 'coffee', 'pairs': ['<script lang="coffee"', '</script>'] },
       \   { 'name': 'javascript', 'pairs': ['<script', '</script>'] },
+      \   { 'name': 'typescript', 'pairs': ['<script lang="typescript"', '</script>'] },
       \ ]
 
 for s:language in s:languages
@@ -34,31 +41,31 @@ let s:html_indent = s:get_indentexpr('html')
 
 let b:did_indent = 1
 
-setlocal indentexpr=GetVueIndent()
+setlocal indentexpr=GetVueIndent(v:lnum)
 
 if exists('*GetVueIndent')
   finish
 endif
 
-function! GetVueIndent()
+function! GetVueIndent(lnum)
   for language in s:languages
     let opening_tag_line = searchpair(language.pairs[0], '', language.pairs[1], 'bWr')
 
     if opening_tag_line
-      execute 'let indent = ' . get(language, 'indentexpr', -1)
+      let indent = language.indentexpr
       break
     endif
   endfor
 
   if exists('l:indent')
-    if (opening_tag_line == prevnonblank(v:lnum - 1) || opening_tag_line == v:lnum)
-          \ || getline(v:lnum) =~ '\v^\s*\</(script|style|template)'
+    if (opening_tag_line == prevnonblank(a:lnum - 1) || opening_tag_line == a:lnum)
+          \ || getline(a:lnum) =~ '\v^\s*\</(script|style|template)'
       return 0
     endif
   else
-    " Couldn't find language, fall back to html
-    execute 'let indent = ' . s:html_indent
+    let indent = s:html_indent
   endif
-
-  return indent
+  let g:vim_vue_last_indentexpr = indent
+  execute 'let g:vim_vue_result = ' . indent
+  return g:vim_vue_result
 endfunction
