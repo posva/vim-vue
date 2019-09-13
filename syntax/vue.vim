@@ -43,7 +43,7 @@ let s:languages = [
       \ {'name': 'less',       'tag': 'style'},
       \ {'name': 'pug',        'tag': 'template', 'attr_pattern': s:attr('lang', '\%(pug\|jade\)')},
       \ {'name': 'slm',        'tag': 'template'},
-      \ {'name': 'handlebars', 'tag': 'template'},
+      \ {'name': 'mustache',   'tag': 'template', 'attr_pattern': s:attr('lang', '\%(mustache\|handlebars\)')},
       \ {'name': 'haml',       'tag': 'template'},
       \ {'name': 'typescript', 'tag': 'script', 'attr_pattern': '\%(lang=\("\|''\)[^\1]*\(ts\|typescript\)[^\1]*\1\|ts\)'},
       \ {'name': 'coffee',     'tag': 'script'},
