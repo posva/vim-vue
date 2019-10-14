@@ -19,7 +19,7 @@ unlet! b:current_syntax
 ""
 " Get the pattern for a HTML {name} attribute with {value}.
 function! s:attr(name, value)
-  return a:name . '=\("\|''\)[^\1]*' . a:value . '[^\1]*\1'
+  return a:name . '=\("\|''\)\?[^\1]*' . a:value . '[^\1]*\1'
 endfunction
 
 function! s:should_register(language, start_pattern)
