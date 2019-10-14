@@ -47,6 +47,7 @@ let s:languages = [
       \ {'name': 'haml',       'tag': 'template'},
       \ {'name': 'typescript', 'tag': 'script', 'attr_pattern': '\%(lang=\("\|''\)[^\1]*\(ts\|typescript\)[^\1]*\1\|ts\)'},
       \ {'name': 'coffee',     'tag': 'script'},
+      \ {'name': 'ls',         'tag': 'script'},
       \ {'name': 'stylus',     'tag': 'style'},
       \ {'name': 'sass',       'tag': 'style'},
       \ {'name': 'scss',       'tag': 'style'},
