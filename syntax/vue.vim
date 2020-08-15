@@ -71,7 +71,16 @@ endfor
 syn region  vueSurroundingTag   contained start=+<\(script\|style\|template\)+ end=+>+ fold contains=htmlTagN,htmlString,htmlArg,htmlValue,htmlTagError,htmlEvent
 syn keyword htmlSpecialTagName  contained template
 syn keyword htmlArg             contained scoped ts
-syn match   htmlArg "[@v:][-:.0-9_a-z]*\>" contained
+syn match   htmlArg "[@#v:a-z][-:.0-9_a-z]*\>" contained
+
+" Prevent 0 lenght vue dynamic attributes from (:id="") from overflowing from
+" the area described by two quotes ("" or '') this works because syntax
+" defined earlier in the file have priority.
+syn match htmlString /\(\([@#:]\|v-\)[-:.0-9_a-z]*=\)\@<=["']\{2\}/ containedin=ALLBUT,htmlComment
+
+" Actually provide the JavaScript syntax highlighting.
+syn region vueJavascriptInTemplate start=/\(\([@#:]\|v-\)[-:.0-9_a-z]*=\)\@<=["']/ms=e+1 keepend end=/["']/me=s-1 contains=@jsAll containedin=ALL
+syn region vueJavascriptInTemplate matchgroup=htmlSpecialChar start=/{{/ keepend end=/}}/ contains=@jsAll containedin=ALLBUT,htmlComment
 
 syntax sync fromstart
 
