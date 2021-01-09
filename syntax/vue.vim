@@ -87,8 +87,8 @@ syn region vueJavascriptInTemplate matchgroup=htmlSpecialChar start=/{{/ keepend
 " It's necessary to have both because we can't start a region with double
 " quotes and it with a single quote, and removing `keepend` would result in
 " side effects.
-syn region vueJavascriptInTemplate start=/\(\([@#:]\|v-\)\([-:.0-9_a-z]*\|\[.*\]\)=\)\@<="/ms=e+1 keepend end=/"/me=s-1 contains=@jsAll containedin=ALLBUT,htmlComment
-syn region vueJavascriptInTemplate start=/\(\([@#:]\|v-\)\([-:.0-9_a-z]*\|\[.*\]\)=\)\@<='/ms=e+1 keepend end=/'/me=s-1 contains=@jsAll containedin=ALLBUT,htmlComment
+syn region vueJavascriptInTemplate start=/\(\s\([@#:]\|v-\)\([-:.0-9_a-z]*\|\[.*\]\)=\)\@<="/ms=e+1 keepend end=/"/me=s-1 contains=@jsAll containedin=ALLBUT,htmlComment
+syn region vueJavascriptInTemplate start=/\(\s\([@#:]\|v-\)\([-:.0-9_a-z]*\|\[.*\]\)=\)\@<='/ms=e+1 keepend end=/'/me=s-1 contains=@jsAll containedin=ALLBUT,htmlComment
 " This one is for #[thisHere] @[thisHereToo] :[thisHereAlso]
 syn region vueJavascriptInTemplate matchgroup=htmlArg start=/[@#:]\[/ keepend end=/\]/ contains=@jsAll containedin=ALLBUT,htmlComment
 
