@@ -41,6 +41,7 @@ endfunction
 
 let s:languages = [
       \ {'name': 'less',       'tag': 'style'},
+      \ {'name': 'html',       'tag': 'template', 'attr_pattern': '', 'js_values_syntax': 1},
       \ {'name': 'pug',        'tag': 'template', 'attr_pattern': s:attr('lang', '\%(pug\|jade\)')},
       \ {'name': 'slm',        'tag': 'template'},
       \ {'name': 'handlebars', 'tag': 'template'},
@@ -52,11 +53,39 @@ let s:languages = [
       \ {'name': 'scss',       'tag': 'style'},
       \ ]
 
+function! s:js_values_for_html()
+  " Prevent 0 length vue dynamic attributes (:id="") from overflowing from
+  " the area described by two quotes ("" or '') this works because syntax
+  " defined earlier in the file have priority.
+  syn match htmlString /\(\([@#:]\|v-\)[-:.0-9_a-z\[\]]*=\)\@<=""/ containedin=ALLBUT,htmlComment
+  syn match htmlString /\(\([@#:]\|v-\)[-:.0-9_a-z\[\]]*=\)\@<=''/ containedin=ALLBUT,htmlComment
+
+  " Actually provide the JavaScript syntax highlighting.
+
+  " for double quotes (") and for single quotes (')
+  " It's necessary to have both because we can't start a region with double
+  " quotes and it with a single quote, and removing `keepend` would result in
+  " side effects.
+  syn region vueJavascriptInTemplate start=/\(\s\([@#:]\|v-\)\([-:.0-9_a-z]*\|\[.*\]\)=\)\@<="/ms=e+1 keepend end=/"/me=s-1 contains=@jsAll containedin=ALLBUT,htmlComment
+  syn region vueJavascriptInTemplate start=/\(\s\([@#:]\|v-\)\([-:.0-9_a-z]*\|\[.*\]\)=\)\@<='/ms=e+1 keepend end=/'/me=s-1 contains=@jsAll containedin=ALLBUT,htmlComment
+  " This one is for #[thisHere] @[thisHereToo] :[thisHereAlso]
+  syn region vueJavascriptInTemplate matchgroup=htmlArg start=/[@#:]\[/ keepend end=/\]/ contains=@jsAll containedin=ALLBUT,htmlComment
+endfunction
+
 for s:language in s:languages
   let s:attr_pattern = has_key(s:language, 'attr_pattern') ? s:language.attr_pattern : s:attr('lang', s:language.name)
   let s:start_pattern = '<' . s:language.tag . '\>\_[^>]*' . s:attr_pattern . '\_[^>]*>'
 
   if s:should_register(s:language.name, s:start_pattern)
+    if has_key(s:language, 'js_values_syntax')
+      execute 'call s:js_values_for_' . s:language.name . '()'
+    endif
+
+    if (s:language.name == 'html')
+      " Skip the syntax loading for html because it's already loaded
+      continue
+    endif
+
     execute 'syntax include @' . s:language.name . ' syntax/' . s:language.name . '.vim'
     unlet! b:current_syntax
     execute 'syntax region vue_' . s:language.name
@@ -73,25 +102,11 @@ syn keyword htmlSpecialTagName  contained template
 syn keyword htmlArg             contained scoped ts
 syn match   htmlArg "[@#v:a-z][-:.0-9_a-z]*\>" contained
 
-" Prevent 0 lenght vue dynamic attributes from (:id="") from overflowing from
-" the area described by two quotes ("" or '') this works because syntax
-" defined earlier in the file have priority.
-syn match htmlString /\(\([@#:]\|v-\)[-:.0-9_a-z\[\]]*=\)\@<=""/ containedin=ALLBUT,htmlComment
-syn match htmlString /\(\([@#:]\|v-\)[-:.0-9_a-z\[\]]*=\)\@<=''/ containedin=ALLBUT,htmlComment
-
-" Actually provide the JavaScript syntax highlighting.
-
 " for mustaches quotes (`{{` and `}}`)
 syn region vueJavascriptInTemplate matchgroup=htmlSpecialChar start=/{{/ keepend end=/}}/ contains=@jsAll containedin=ALLBUT,htmlComment
-" for double quotes (") and for single quotes (')
-" It's necessary to have both because we can't start a region with double
-" quotes and it with a single quote, and removing `keepend` would result in
-" side effects.
-syn region vueJavascriptInTemplate start=/\(\s\([@#:]\|v-\)\([-:.0-9_a-z]*\|\[.*\]\)=\)\@<="/ms=e+1 keepend end=/"/me=s-1 contains=@jsAll containedin=ALLBUT,htmlComment
-syn region vueJavascriptInTemplate start=/\(\s\([@#:]\|v-\)\([-:.0-9_a-z]*\|\[.*\]\)=\)\@<='/ms=e+1 keepend end=/'/me=s-1 contains=@jsAll containedin=ALLBUT,htmlComment
-" This one is for #[thisHere] @[thisHereToo] :[thisHereAlso]
-syn region vueJavascriptInTemplate matchgroup=htmlArg start=/[@#:]\[/ keepend end=/\]/ contains=@jsAll containedin=ALLBUT,htmlComment
 
 syntax sync fromstart
 
 let b:current_syntax = "vue"
+
+" vim: et tw=2 sts=2
