@@ -77,23 +77,21 @@ for s:language in s:languages
   let s:start_pattern = '<' . s:language.tag . '\>\_[^>]*' . s:attr_pattern . '\_[^>]*>'
 
   if s:should_register(s:language.name, s:start_pattern)
+    " Skip the syntax loading for html because it's already loaded as base
+    if (s:language.name != 'html')
+      execute 'syntax include @' . s:language.name . ' syntax/' . s:language.name . '.vim'
+      unlet! b:current_syntax
+      execute 'syntax region vue_' . s:language.name
+            \ 'keepend'
+            \ 'start=/' . s:start_pattern . '/'
+            \ 'end="</' . s:language.tag . '>"me=s-1'
+            \ 'contains=@' . s:language.name . ',vueSurroundingTag'
+            \ 'fold'
+    endif
+
     if has_key(s:language, 'js_values_syntax')
       execute 'call s:js_values_for_' . s:language.name . '()'
     endif
-
-    if (s:language.name == 'html')
-      " Skip the syntax loading for html because it's already loaded
-      continue
-    endif
-
-    execute 'syntax include @' . s:language.name . ' syntax/' . s:language.name . '.vim'
-    unlet! b:current_syntax
-    execute 'syntax region vue_' . s:language.name
-          \ 'keepend'
-          \ 'start=/' . s:start_pattern . '/'
-          \ 'end="</' . s:language.tag . '>"me=s-1'
-          \ 'contains=@' . s:language.name . ',vueSurroundingTag'
-          \ 'fold'
   endif
 endfor
 
