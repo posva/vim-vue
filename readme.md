@@ -40,6 +40,34 @@ and properly [configured](https://github.com/vuejs/eslint-plugin-vue#rocket-usag
 npm i -g eslint eslint-plugin-vue
 ```
 
+## Options
+
+### `g:vue_pre_processors`
+
+> default value: `'detect_on_enter'`
+
+This options controls which preprocessors' syntax will be included when you open a new vue file. So when you are using `scss` or `typescript`, the correct syntax highlighting will be applied.
+
+To disable pre-processor languages altogether (only highlight HTML, JavaScript, and CSS):
+
+```vim
+let g:vue_pre_processors = []
+```
+
+Available pre-processors are: `coffee`, `haml`, `handlebars`, `less`, `pug`, `sass`, `scss`, `slm`, `stylus`, `typescript`.
+
+When `g:vue_pre_processors` is set to `'detect_on_enter'` instead of a list, vim-vue will detect the pre-processors used when a file is opened, and load only their syntax files.
+
+```vim
+let g:vue_pre_processors = 'detect_on_enter'
+```
+
+This is the default behavior. This also matches how vim natively detects syntaxes, for example, when you create a new file and start typing, you wont see the correct syntax until you save the file under a extension so that vim can detect which syntax to load. The 'detect_on_enter' is similar.
+
+When you want vim-vue to detect a new syntax you just typed, just save the file (`:w<cr>`) and reload the file (`:e!<cr>`).
+
+Loading all syntaxes by default is not recommended because doing so slows down vim quite allot due to the multiple syntax highlighting checks that are done. Also, having multiple syntaxes for the `template` tag loaded at the same time, may result in the `js` syntax in the template (like `:value="variable"`) malfunction (see #150 for details).
+
 ## Contributing
 
 If your language is not getting highlighted open an issue or a PR with the fix.
@@ -101,22 +129,11 @@ endfunction
 </details>
 
 ### _Vim slows down when using this plugin_ How can I fix that?
+
+> This was more of a problem when the default value of 'g:vue_pre_processors' was to load all pre-processors available, now that this is not the case, this problem shouldn't happen. That said, if you still are having problems, try setting `let g:vue_pre_processors = []`, see if it helps. Read the section on this option above for more information.
+
 When checking for pre-processor languages, multiple syntax highlighting checks are done, which can slow down vim. You can trim down which pre-processors to use by setting `g:vue_pre_processors` to a whitelist of languages to support:
 
 ```vim
 let g:vue_pre_processors = ['pug', 'scss']
-```
-
-To disable pre-processor languages altogether (only highlight HTML, JavaScript, and CSS):
-
-```vim
-let g:vue_pre_processors = []
-```
-
-Available pre-processors are: coffee, haml, handlebars, less, pug, sass, scss, slm, stylus, typescript
-
-When `g:vue_pre_processors` is set to 'detect_on_enter' instead of a list, vim-vue will detect the pre-processors used when a file is opened, and load only their syntax files.
-
-```vim
-let g:vue_pre_processors = 'detect_on_enter'
 ```

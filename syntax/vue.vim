@@ -11,6 +11,11 @@ if exists('g:vue_disable_pre_processors') && g:vue_disable_pre_processors
   let g:vue_pre_processors = []
 endif
 
+" If not exist, set the default value
+if !exists('g:vue_pre_processors')
+  let g:vue_pre_processors = 'detect_on_enter'
+endif
+
 runtime! syntax/html.vim
 syntax clear htmlTagName
 syntax match htmlTagName contained "\<[a-zA-Z0-9:-]*\>"
