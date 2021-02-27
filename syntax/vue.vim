@@ -44,6 +44,8 @@ function! s:should_register(language, start_pattern)
   return 1
 endfunction
 
+" If you want to add a js_values_syntax for a language, you need to add a
+" function named 's:js_values_for_<name of the language>' in this file
 let s:languages = [
       \ {'name': 'less',       'tag': 'style'},
       \ {'name': 'html',       'tag': 'template', 'attr_pattern': '', 'js_values_syntax': 1},
