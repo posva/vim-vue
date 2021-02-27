@@ -64,7 +64,7 @@ let g:vue_pre_processors = 'detect_on_enter'
 
 This is the default behavior. This also matches how vim natively detects syntaxes, for example, when you create a new file and start typing, you wont see the correct syntax until you save the file under a extension so that vim can detect which syntax to load. The 'detect_on_enter' is similar.
 
-When you want vim-vue to detect a new syntax you just typed, just save the file (`:w<cr>`) and reload the file (`:e!<cr>`).
+When you want vim-vue to detect a new syntax you just typed, just turn the syntax off (`:syntax off`) and on again (`:syntax on`).
 
 Loading all syntaxes by default is not recommended because doing so slows down vim quite allot due to the multiple syntax highlighting checks that are done. Also, having multiple syntaxes for the `template` tag loaded at the same time, may result in the `js` syntax in the template (like `:value="variable"`) malfunction (see #150 for details).
 
