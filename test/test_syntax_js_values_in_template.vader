@@ -1,0 +1,107 @@
+Before:
+  let g:vue_pre_processors="detect_on_enter"
+#
+# HTML
+#
+Given vue (HTML directives);
+<template>
+  <input v-model="internalValue" />
+</template>
+
+Do:
+# refresh detect_on_enter
+  :syntax off\<CR>
+  :syntax on\<CR>
+
+Execute:
+  AssertEqual 'htmlArg', SyntaxAt(2, 10)
+  AssertEqual 'vueJavascriptInTemplate', SyntaxAt(2, 19)
+
+Given vue (HTML slots);
+<template>
+  <custom-button
+    #default="scopedProps"
+    #[dynamicSlot[2]]="variable"
+  />
+</template>
+
+Do:
+# refresh detect_on_enter
+  :syntax off\<CR>
+  :syntax on\<CR>
+
+Execute:
+  AssertEqual 'htmlArg', SyntaxAt(3, 5)
+  AssertEqual 'htmlArg', SyntaxAt(4, 5)
+  AssertEqual 'vueJavascriptInTemplate', SyntaxAt(3, 15)
+  AssertEqual 'vueJavascriptInTemplate', SyntaxAt(4, 7)
+  AssertEqual 'vueJavascriptInTemplate', SyntaxAt(4, 24)
+
+Given vue (HTML events);
+<template>
+  <custom-button
+    @click='events.goToCheckout(i)'
+    @[object.hoverEvent(true)]="event"
+  />
+</template>
+
+Do:
+# refresh detect_on_enter
+  :syntax off\<CR>
+  :syntax on\<CR>
+
+Execute:
+  AssertEqual 'htmlArg', SyntaxAt(3, 5)
+  AssertEqual 'htmlArg', SyntaxAt(4, 5)
+  AssertEqual 'vueJavascriptInTemplate', SyntaxAt(3, 13)
+  AssertEqual 'vueJavascriptInTemplate', SyntaxAt(4, 7)
+  AssertEqual 'vueJavascriptInTemplate', SyntaxAt(4, 33)
+
+Given vue (HTML attributes and props);
+<template>
+  <custom-button
+    :color='customColor'
+    :[iconProp]="isLoading ? 'loading' : 'bag'"
+    variant="primary"
+    tabindex='0'
+    aria-label="buy our stuff"
+  />
+</template>
+
+Do:
+# refresh detect_on_enter
+  :syntax off\<CR>
+  :syntax on\<CR>
+
+Execute:
+# dynamic and static props
+  AssertEqual 'htmlArg', SyntaxAt(3, 5)
+  AssertEqual 'htmlArg', SyntaxAt(4, 5)
+  AssertEqual 'htmlArg', SyntaxAt(5, 5)
+  AssertEqual 'vueJavascriptInTemplate', SyntaxAt(3, 13)
+  AssertEqual 'vueJavascriptInTemplate', SyntaxAt(4, 7)
+  AssertEqual 'vueJavascriptInTemplate', SyntaxAt(4, 18)
+# variant tabindex
+  AssertEqual 'htmlArg', SyntaxAt(5, 5)
+  AssertEqual 'htmlArg', SyntaxAt(6, 5)
+# both types of string
+  AssertEqual 'htmlString', SyntaxAt(3, 12)
+  AssertEqual 'htmlString', SyntaxAt(6, 16)
+  AssertEqual 'htmlString', SyntaxAt(4, 17)
+  AssertEqual 'htmlString', SyntaxAt(7, 16)
+
+Given vue (HTML mustaches syntax);
+<template>
+  <button>
+    Buy {{ getProduct() }}!
+  </button>
+</template>
+
+Do:
+# refresh detect_on_enter
+  :syntax off\<CR>
+  :syntax on\<CR>
+
+Execute:
+  AssertEqual 'htmlSpecialChar', SyntaxAt(3, 9)
+  AssertEqual 'vueJavascriptInTemplate', SyntaxAt(3, 11)
