@@ -48,7 +48,6 @@ endfunction
 " function named 's:js_values_for_<name of the language>' in this file
 let s:languages = [
       \ {'name': 'less',       'tag': 'style'},
-      \ {'name': 'html',       'tag': 'template', 'attr_pattern': '', 'js_values_syntax': 1},
       \ {'name': 'pug',        'tag': 'template', 'attr_pattern': s:attr('lang', '\%(pug\|jade\)')},
       \ {'name': 'slm',        'tag': 'template'},
       \ {'name': 'handlebars', 'tag': 'template'},
@@ -78,6 +77,11 @@ function! s:js_values_for_html()
   " This one is for #[thisHere] @[thisHereToo] :[thisHereAlso]
   syn region vueJavascriptInTemplate matchgroup=htmlArg start=/[@#:]\[/ keepend end=/\]/ contains=@jsAll containedin=ALLBUT,htmlComment
 endfunction
+
+" Eager load html, because it's not a pre-processor, and being loaded since the
+" start (for the tags), it's kinda counter intuitive that you need to load the
+" html pre-processor if the syntax is already mostly correct.
+call s:js_values_for_html()
 
 for s:language in s:languages
   let s:attr_pattern = has_key(s:language, 'attr_pattern') ? s:language.attr_pattern : s:attr('lang', s:language.name)
