@@ -1,3 +1,5 @@
+Before:
+  let g:vue_pre_processors="all"
 #
 # HTML
 #
@@ -27,7 +29,7 @@ Execute (Syntax doesn't stop at the first closing template tag):
 #
 # JavaScript
 #
-Given vue:
+Given vue (Recognizes javascript syntax with bare script tag):
   <script>
   //
   </script>
