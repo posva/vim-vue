@@ -36,6 +36,12 @@ and properly [configured](https://github.com/vuejs/eslint-plugin-svelte):
 
 ```bash
 npm i -g eslint eslint-plugin-svelte3
+eslint --init
+```
+Add something like this to your vimrc file:
+
+```vim
+let g:syntastic_svelte_checkers = ['javascript/eslint', 'html/htmlhint']
 ```
 
 ## Contributing
