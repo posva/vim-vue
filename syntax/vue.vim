@@ -90,17 +90,14 @@ for s:language in s:languages
   let s:start_pattern = '<' . s:language.tag . '\>\_[^>]*' . s:attr_pattern . '\_[^>]*>'
 
   if s:should_register(s:language.name, s:start_pattern)
-    " Skip the syntax loading for html because it's already loaded as base
-    if (s:language.name != 'html')
-      execute 'syntax include @' . s:language.name . ' syntax/' . s:language.name . '.vim'
-      unlet! b:current_syntax
-      execute 'syntax region vue_' . s:language.name
-            \ 'keepend'
-            \ 'start=/' . s:start_pattern . '/'
-            \ 'end="</' . s:language.tag . '>"me=s-1'
-            \ 'contains=@' . s:language.name . ',vueSurroundingTag'
-            \ 'fold'
-    endif
+    execute 'syntax include @' . s:language.name . ' syntax/' . s:language.name . '.vim'
+    unlet! b:current_syntax
+    execute 'syntax region vue_' . s:language.name
+          \ 'keepend'
+          \ 'start=/' . s:start_pattern . '/'
+          \ 'end="</' . s:language.tag . '>"me=s-1'
+          \ 'contains=@' . s:language.name . ',vueSurroundingTag'
+          \ 'fold'
 
     if (s:language.tag == 'script')
       syntax clear @TemplateScript
