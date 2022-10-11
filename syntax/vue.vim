@@ -49,6 +49,14 @@ endfunction
 " scripting languages such as typescript if the .vue file uses a lang="ts"
 syntax cluster TemplateScript contains=@jsAll
 
+syn region  vueSurroundingTag   contained start=+<\(script\|style\|template\)+ end=+>+ fold contains=htmlTagN,htmlString,htmlArg,htmlValue,htmlTagError,htmlEvent
+syn keyword htmlSpecialTagName  contained template
+syn keyword htmlArg             contained scoped ts
+syn match   htmlArg "[@#v:a-z][-:.0-9_a-z]*\>" contained
+
+" for mustaches quotes (`{{` and `}}`)
+syn region vueTemplateScript matchgroup=htmlSpecialChar start=/{{/ keepend end=/}}/ contains=@TemplateScript containedin=ALLBUT,htmlComment
+
 " template_script_in_* region {{{
 """""
 " if you want to add script highlighting support for a specific template
@@ -117,14 +125,6 @@ for s:language in s:languages
     endif
   endif
 endfor
-
-syn region  vueSurroundingTag   contained start=+<\(script\|style\|template\)+ end=+>+ fold contains=htmlTagN,htmlString,htmlArg,htmlValue,htmlTagError,htmlEvent
-syn keyword htmlSpecialTagName  contained template
-syn keyword htmlArg             contained scoped ts
-syn match   htmlArg "[@#v:a-z][-:.0-9_a-z]*\>" contained
-
-" for mustaches quotes (`{{` and `}}`)
-syn region vueTemplateScript matchgroup=htmlSpecialChar start=/{{/ keepend end=/}}/ contains=@TemplateScript containedin=ALLBUT,htmlComment
 
 syntax sync fromstart
 
