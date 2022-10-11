@@ -61,8 +61,7 @@ function! s:template_script_in_html()
   " Prevent 0 length vue dynamic attributes (:id="") from overflowing from
   " the area described by two quotes ("" or '') this works because syntax
   " defined earlier in the file have priority.
-  syn match htmlString /\(\([@#:]\|v-\)[-:.0-9_a-z\[\]]*=\)\@<=""/ containedin=ALLBUT,htmlComment
-  syn match htmlString /\(\([@#:]\|v-\)[-:.0-9_a-z\[\]]*=\)\@<=''/ containedin=ALLBUT,htmlComment
+  syn match htmlString /\(\([@#:]\|v-\)[-:.0-9_a-z\[\]]*=\)\@<=\(""\|''\)/ containedin=ALLBUT,htmlComment
 
   " Actually provide the JavaScript syntax highlighting.
 
