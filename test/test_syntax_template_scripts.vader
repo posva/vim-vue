@@ -15,7 +15,7 @@ Do:
 
 Execute:
   AssertEqual 'htmlArg', SyntaxAt(2, 10)
-  AssertEqual 'vueJavascriptInTemplate', SyntaxAt(2, 19)
+  AssertEqual 'vueTemplateScript', SyntaxAt(2, 19)
 
 Given vue (HTML slots);
 <template>
@@ -33,9 +33,9 @@ Do:
 Execute:
   AssertEqual 'htmlArg', SyntaxAt(3, 5)
   AssertEqual 'htmlArg', SyntaxAt(4, 5)
-  AssertEqual 'vueJavascriptInTemplate', SyntaxAt(3, 15)
-  AssertEqual 'vueJavascriptInTemplate', SyntaxAt(4, 7)
-  AssertEqual 'vueJavascriptInTemplate', SyntaxAt(4, 24)
+  AssertEqual 'vueTemplateScript', SyntaxAt(3, 15)
+  AssertEqual 'vueTemplateScript', SyntaxAt(4, 7)
+  AssertEqual 'vueTemplateScript', SyntaxAt(4, 24)
 
 Given vue (HTML events);
 <template>
@@ -53,9 +53,9 @@ Do:
 Execute:
   AssertEqual 'htmlArg', SyntaxAt(3, 5)
   AssertEqual 'htmlArg', SyntaxAt(4, 5)
-  AssertEqual 'vueJavascriptInTemplate', SyntaxAt(3, 13)
-  AssertEqual 'vueJavascriptInTemplate', SyntaxAt(4, 7)
-  AssertEqual 'vueJavascriptInTemplate', SyntaxAt(4, 33)
+  AssertEqual 'vueTemplateScript', SyntaxAt(3, 13)
+  AssertEqual 'vueTemplateScript', SyntaxAt(4, 7)
+  AssertEqual 'vueTemplateScript', SyntaxAt(4, 33)
 
 Given vue (HTML attributes and props);
 <template>
@@ -78,9 +78,9 @@ Execute:
   AssertEqual 'htmlArg', SyntaxAt(3, 5)
   AssertEqual 'htmlArg', SyntaxAt(4, 5)
   AssertEqual 'htmlArg', SyntaxAt(5, 5)
-  AssertEqual 'vueJavascriptInTemplate', SyntaxAt(3, 13)
-  AssertEqual 'vueJavascriptInTemplate', SyntaxAt(4, 7)
-  AssertEqual 'vueJavascriptInTemplate', SyntaxAt(4, 18)
+  AssertEqual 'vueTemplateScript', SyntaxAt(3, 13)
+  AssertEqual 'vueTemplateScript', SyntaxAt(4, 7)
+  AssertEqual 'vueTemplateScript', SyntaxAt(4, 18)
 # variant tabindex
   AssertEqual 'htmlArg', SyntaxAt(5, 5)
   AssertEqual 'htmlArg', SyntaxAt(6, 5)
@@ -104,4 +104,4 @@ Do:
 
 Execute:
   AssertEqual 'htmlSpecialChar', SyntaxAt(3, 9)
-  AssertEqual 'vueJavascriptInTemplate', SyntaxAt(3, 11)
+  AssertEqual 'vueTemplateScript', SyntaxAt(3, 11)
