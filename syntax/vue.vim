@@ -59,6 +59,8 @@ let s:languages = [
       \ {'name': 'scss',       'tag': 'style'},
       \ ]
 
+syntax cluster TemplateScript contains=@jsAll
+
 function! s:js_values_for_html()
   " Prevent 0 length vue dynamic attributes (:id="") from overflowing from
   " the area described by two quotes ("" or '') this works because syntax
@@ -72,10 +74,10 @@ function! s:js_values_for_html()
   " It's necessary to have both because we can't start a region with double
   " quotes and it with a single quote, and removing `keepend` would result in
   " side effects.
-  syn region vueJavascriptInTemplate start=/\(\s\([@#:]\|v-\)\([-:.0-9_a-z]*\|\[.*\]\)=\)\@<="/ms=e+1 keepend end=/"/me=s-1 contains=@jsAll containedin=ALLBUT,htmlComment
-  syn region vueJavascriptInTemplate start=/\(\s\([@#:]\|v-\)\([-:.0-9_a-z]*\|\[.*\]\)=\)\@<='/ms=e+1 keepend end=/'/me=s-1 contains=@jsAll containedin=ALLBUT,htmlComment
+  syn region vueJavascriptInTemplate start=/\(\s\([@#:]\|v-\)\([-:.0-9_a-z]*\|\[.*\]\)=\)\@<="/ms=e+1 keepend end=/"/me=s-1 contains=@TemplateScript containedin=ALLBUT,htmlComment
+  syn region vueJavascriptInTemplate start=/\(\s\([@#:]\|v-\)\([-:.0-9_a-z]*\|\[.*\]\)=\)\@<='/ms=e+1 keepend end=/'/me=s-1 contains=@TemplateScript containedin=ALLBUT,htmlComment
   " This one is for #[thisHere] @[thisHereToo] :[thisHereAlso]
-  syn region vueJavascriptInTemplate matchgroup=htmlArg start=/[@#:]\[/ keepend end=/\]/ contains=@jsAll containedin=ALLBUT,htmlComment
+  syn region vueJavascriptInTemplate matchgroup=htmlArg start=/[@#:]\[/ keepend end=/\]/ contains=@TemplateScript containedin=ALLBUT,htmlComment
 endfunction
 
 " Eager load html, because it's not a pre-processor, and being loaded since the
@@ -100,6 +102,11 @@ for s:language in s:languages
             \ 'fold'
     endif
 
+    if (s:language.tag == 'script')
+      syntax clear @TemplateScript
+      execute 'syntax cluster TemplateScript contains=@'.s:language.name
+    endif
+
     if has_key(s:language, 'js_values_syntax')
       execute 'call s:js_values_for_' . s:language.name . '()'
     endif
@@ -112,7 +119,7 @@ syn keyword htmlArg             contained scoped ts
 syn match   htmlArg "[@#v:a-z][-:.0-9_a-z]*\>" contained
 
 " for mustaches quotes (`{{` and `}}`)
-syn region vueJavascriptInTemplate matchgroup=htmlSpecialChar start=/{{/ keepend end=/}}/ contains=@jsAll containedin=ALLBUT,htmlComment
+syn region vueJavascriptInTemplate matchgroup=htmlSpecialChar start=/{{/ keepend end=/}}/ contains=@TemplateScript containedin=ALLBUT,htmlComment
 
 syntax sync fromstart
 
