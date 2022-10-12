@@ -1,0 +1,123 @@
+Before:
+  let g:vue_pre_processors="detect_on_enter"
+#
+# HTML
+#
+Given vue (HTML directives);
+<template>
+  <input v-model="internalValue" />
+</template>
+
+Execute (refresh detect_on_enter):
+  syntax off
+  syntax on
+
+Then (expect vue directives to be highlighted as htmlArg and it's value to be highlighted as script):
+  AssertEqual 'htmlTag', SyntaxAt(2, 10)
+  AssertEqual 'vueTemplateScript', SyntaxAt(2, 19)
+
+Given vue (HTML slots);
+<template>
+  <custom-button
+    #default="scopedProps"
+    #[dynamicSlot[2]]="variable"
+  />
+</template>
+
+Execute (refresh detect_on_enter):
+  syntax off
+  syntax on
+
+Then (expect dynamic slots and slot scopes to be script highlighted):
+  AssertEqual 'htmlArg', SyntaxAt(3, 5)
+  AssertEqual 'htmlArg', SyntaxAt(4, 5)
+  AssertEqual 'vueTemplateScript', SyntaxAt(3, 15)
+  AssertEqual 'vueTemplateScript', SyntaxAt(4, 7)
+  AssertEqual 'vueTemplateScript', SyntaxAt(4, 24)
+
+Given vue (HTML events);
+<template>
+  <custom-button
+    @click='events.goToCheckout(i)'
+    @[object.hoverEvent(true)]="event"
+  />
+</template>
+
+Execute (refresh detect_on_enter):
+  syntax off
+  syntax on
+
+Then (expect dynamic events and event callbacks to be script highlighted):
+  AssertEqual 'htmlArg', SyntaxAt(3, 5)
+  AssertEqual 'htmlArg', SyntaxAt(4, 5)
+  AssertEqual 'vueTemplateScript', SyntaxAt(3, 13)
+  AssertEqual 'vueTemplateScript', SyntaxAt(4, 7)
+  AssertEqual 'vueTemplateScript', SyntaxAt(4, 33)
+
+Given vue (HTML attributes and props);
+<template>
+  <custom-button
+    :color='customColor'
+    :[iconProp]="isLoading ? 'loading' : 'bag'"
+    variant="primary"
+    tabindex='0'
+    aria-label="buy our stuff"
+  />
+</template>
+
+Execute (refresh detect_on_enter):
+  syntax off
+  syntax on
+
+Then (expect dynamic bindings and binding values to be script highlighted but static props and args to be htmlString):
+# dynamic and static props
+  AssertEqual 'htmlArg', SyntaxAt(3, 5)
+  AssertEqual 'htmlArg', SyntaxAt(4, 5)
+  AssertEqual 'htmlArg', SyntaxAt(5, 5)
+  AssertEqual 'vueTemplateScript', SyntaxAt(3, 13)
+  AssertEqual 'vueTemplateScript', SyntaxAt(4, 7)
+  AssertEqual 'vueTemplateScript', SyntaxAt(4, 18)
+# variant tabindex
+  AssertEqual 'htmlArg', SyntaxAt(5, 5)
+  AssertEqual 'htmlArg', SyntaxAt(6, 5)
+# both types of string
+  AssertEqual 'htmlString', SyntaxAt(3, 12)
+  AssertEqual 'htmlString', SyntaxAt(6, 16)
+  AssertEqual 'htmlString', SyntaxAt(4, 17)
+  AssertEqual 'htmlString', SyntaxAt(7, 16)
+
+Given vue (HTML mustaches syntax);
+<template>
+  <button>
+    Buy {{ getProduct() }}!
+  </button>
+</template>
+
+Execute (refresh detect_on_enter):
+  syntax off
+  syntax on
+
+Then (expect inside of a mustache to be script highlighted):
+  AssertEqual 'htmlSpecialChar', SyntaxAt(3, 9)
+  AssertEqual 'vueTemplateScript', SyntaxAt(3, 11)
+
+Given vue (HTML with typescript);
+<template>
+  <button>
+    Buy {{ getProduct(item as string) }}!
+  </button>
+</template>
+<script lang="ts">
+import { defineComponent } from 'vue';
+export default defineComponent({ name: 'Mock' })
+</script>
+
+Execute (refresh detect_on_enter):
+  syntax off
+  syntax on
+
+Then (Expect typescript highlighting to be present in the template):
+  AssertEqual 'htmlSpecialChar', SyntaxAt(3, 9)
+  AssertEqual 'typescriptImport', SyntaxAt(7, 1)
+  AssertEqual 'vueTemplateScript', SyntaxAt(3, 11)
+  AssertEqual 'typescriptPredefinedType', SyntaxAt(3, 31)
