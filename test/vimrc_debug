@@ -1,0 +1,4 @@
+source test/vimrc
+
+" Allow inspection of syntax
+map ZI <Plug>ScripteaseSynnames
