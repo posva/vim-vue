@@ -62,8 +62,7 @@ syn region vueTemplateScript matchgroup=htmlSpecialChar start=/{{/ keepend end=/
 " if you want to add script highlighting support for a specific template
 " language, you should do it in this region (marked by the {{{fold marks}}})
 " named "s:template_script_in_<language>", the "<language>" must match the name
-" declared on the "s:languages" array (later in the file) and add a key in the
-" language object referring to the language you want to include highlighting for
+" declared on the "s:languages" array (later in the file)
 
 function! s:template_script_in_html()
   " Prevent 0 length vue dynamic attributes (:id="") from overflowing from
@@ -120,7 +119,8 @@ for s:language in s:languages
       execute 'syntax cluster TemplateScript contains=@'.s:language.name
     endif
 
-    if has_key(s:language, 'template_script_syntax')
+    " if function exists, call it
+    if (exists('*s:template_script_in_' . s:language.name))
       execute 'call s:template_script_in_' . s:language.name . '()'
     endif
   endif
