@@ -8,6 +8,9 @@ This was initially forked from
 implementation for this but found his code much cleaner. That's why I created a
 new version instead of a PR.
 
+This project is not the most active Vue plugin for Vim.
+One alternative that is updated more frequently is [leafOfTree/vim-vue-plugin](https://github.com/leafOfTree/vim-vue-plugin).
+
 ## Installation
 
 ### Install with [Vundle](https://github.com/VundleVim/Vundle.vim)
