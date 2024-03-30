@@ -8,8 +8,12 @@ This was initially forked from
 implementation for this but found his code much cleaner. That's why I created a
 new version instead of a PR.
 
-This project is not the most active Vue plugin for Vim.
-One alternative that is updated more frequently is [leafOfTree/vim-vue-plugin](https://github.com/leafOfTree/vim-vue-plugin).
+> [!WARNING]
+> This project is currently not actively maintained. Some alternatives that receive more frequent updates:
+>
+> - [leafOfTree/vim-vue-plugin](https://github.com/leafOfTree/vim-vue-plugin)
+> - [nvim-treesitter/nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
+> - [vuejs/language-tools](https://github.com/vuejs/language-tools?tab=readme-ov-file#community-integration)
 
 ## Installation
 
