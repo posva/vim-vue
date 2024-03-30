@@ -1,7 +1,9 @@
-test: dependencies
+test: test-vim test-neovim
+
+test-vim: dependencies
 	vim -u test/vimrc -c 'Vader! test/*.vader'
 
-test-nvim: dependencies
+test-neovim: dependencies
 	VADER_OUTPUT_FILE=/dev/stderr nvim -u test/vimrc -c 'Vader! test/*.vader' --headless
 
 dependencies = \
@@ -25,4 +27,4 @@ dependencies:
 clean:
 	rm -rf pack
 
-.PHONY: test test-nvim dependencies clean
+.PHONY: test test-vim test-neovim dependencies clean

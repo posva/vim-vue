@@ -1,0 +1,22 @@
+name: Tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  tests:
+    strategy:
+      fail-fast: false
+      matrix:
+        editor: [vim, neovim]
+        version: [stable, nightly]
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: rhysd/action-setup-vim@v1
+        with:
+          version: ${{ matrix.version }}
+          neovim: ${{ matrix.editor == 'neovim' }}
+      - run: make test-${{ matrix.editor }}
