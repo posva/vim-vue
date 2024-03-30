@@ -9,11 +9,7 @@ implementation for this but found his code much cleaner. That's why I created a
 new version instead of a PR.
 
 > [!WARNING]
-> This project is currently not actively maintained. Some alternatives that receive more frequent updates:
->
-> - [leafOfTree/vim-vue-plugin](https://github.com/leafOfTree/vim-vue-plugin)
-> - [nvim-treesitter/nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
-> - [vuejs/language-tools](https://github.com/vuejs/language-tools?tab=readme-ov-file#community-integration)
+> This project is currently not actively maintained. We recommend to check the official [vuejs/language-tools](https://github.com/vuejs/language-tools?tab=readme-ov-file#community-integration) instead.
 
 ## Installation
 
