@@ -8,6 +8,9 @@ This was initially forked from
 implementation for this but found his code much cleaner. That's why I created a
 new version instead of a PR.
 
+> [!WARNING]
+> This project is currently not actively maintained. We recommend to check the official [vuejs/language-tools](https://github.com/vuejs/language-tools?tab=readme-ov-file#community-integration) instead.
+
 ## Installation
 
 ### Install with [Vundle](https://github.com/VundleVim/Vundle.vim)
