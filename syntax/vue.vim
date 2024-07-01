@@ -19,7 +19,7 @@ unlet! b:current_syntax
 ""
 " Get the pattern for a HTML {name} attribute with {value}.
 function! s:attr(name, value)
-  return a:name . '=\("\|''\)[^\1]*' . a:value . '[^\1]*\1'
+  return a:name . '=\("\|''\)\?[^\1]*' . a:value . '[^\1]*\1'
 endfunction
 
 function! s:should_register(language, start_pattern)
@@ -47,6 +47,7 @@ let s:languages = [
       \ {'name': 'haml',       'tag': 'template'},
       \ {'name': 'typescript', 'tag': 'script', 'attr_pattern': '\%(lang=\("\|''\)[^\1]*\(ts\|typescript\)[^\1]*\1\|ts\)'},
       \ {'name': 'coffee',     'tag': 'script'},
+      \ {'name': 'ls',         'tag': 'script'},
       \ {'name': 'stylus',     'tag': 'style'},
       \ {'name': 'sass',       'tag': 'style'},
       \ {'name': 'scss',       'tag': 'style'},
