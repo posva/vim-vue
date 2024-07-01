@@ -11,6 +11,11 @@ if exists('g:vue_disable_pre_processors') && g:vue_disable_pre_processors
   let g:vue_pre_processors = []
 endif
 
+" If not exist, set the default value
+if !exists('g:vue_pre_processors')
+  let g:vue_pre_processors = 'detect_on_enter'
+endif
+
 runtime! syntax/html.vim
 syntax clear htmlTagName
 syntax match htmlTagName contained "\<[a-zA-Z0-9:-]*\>"
@@ -39,6 +44,49 @@ function! s:should_register(language, start_pattern)
   return 1
 endfunction
 
+" define the cluster that will be applied inside the template tag where
+" javascript is ran by vue, this is defined so it can be redefined with other
+" scripting languages such as typescript if the .vue file uses a lang="ts"
+syntax cluster TemplateScript contains=@jsAll
+
+syn region  vueSurroundingTag   contained start=+<\(script\|style\|template\)+ end=+>+ fold contains=htmlTagN,htmlString,htmlArg,htmlValue,htmlTagError,htmlEvent
+syn keyword htmlSpecialTagName  contained template
+syn keyword htmlArg             contained scoped ts
+syn match   htmlArg "[@#v:a-z][-:.0-9_a-z]*\>" contained
+
+" for mustaches quotes (`{{` and `}}`)
+syn region vueTemplateScript matchgroup=htmlSpecialChar start=/{{/ keepend end=/}}/ contains=@TemplateScript containedin=ALLBUT,htmlComment
+
+" template_script_in_* region {{{
+"""""
+" if you want to add script highlighting support for a specific template
+" language, you should do it in this region (marked by the {{{fold marks}}})
+" named "s:template_script_in_<language>", the "<language>" must match the name
+" declared on the "s:languages" array (later in the file)
+
+function! s:template_script_in_html()
+  " Prevent 0 length vue dynamic attributes (:id="") from overflowing from
+  " the area described by two quotes ("" or '') this works because syntax
+  " defined earlier in the file have priority.
+  syn match htmlString /\(\([@#:]\|v-\)[-:.0-9_a-z\[\]]*=\)\@<=\(""\|''\)/ containedin=ALLBUT,htmlComment
+
+  " Actually provide the JavaScript syntax highlighting.
+
+  " for double quotes (") and for single quotes (')
+  " It's necessary to have both because we can't start a region with double
+  " quotes and it with a single quote, and removing `keepend` would result in
+  " side effects.
+  syn region vueTemplateScript start=/\(\s\([@#:]\|v-\)\([-:.0-9_a-z]*\|\[.*\]\)=\)\@<="/ms=e+1 keepend end=/"/me=s-1 contains=@TemplateScript containedin=ALLBUT,htmlComment
+  syn region vueTemplateScript start=/\(\s\([@#:]\|v-\)\([-:.0-9_a-z]*\|\[.*\]\)=\)\@<='/ms=e+1 keepend end=/'/me=s-1 contains=@TemplateScript containedin=ALLBUT,htmlComment
+  " This one is for #[thisHere] @[thisHereToo] :[thisHereAlso]
+  syn region vueTemplateScript matchgroup=htmlArg start=/[@#:]\[/ keepend end=/\]/ contains=@TemplateScript containedin=ALLBUT,htmlComment
+endfunction
+" }}}
+
+" Eager load template script highlighting for html because it's already being
+" loaded as the base for the .vue syntax highlighting.
+call s:template_script_in_html()
+
 let s:languages = [
       \ {'name': 'less',       'tag': 'style'},
       \ {'name': 'pug',        'tag': 'template', 'attr_pattern': s:attr('lang', '\%(pug\|jade\)')},
@@ -65,14 +113,21 @@ for s:language in s:languages
           \ 'end="</' . s:language.tag . '>"me=s-1'
           \ 'contains=@' . s:language.name . ',vueSurroundingTag'
           \ 'fold'
+
+    if (s:language.tag == 'script')
+      syntax clear @TemplateScript
+      execute 'syntax cluster TemplateScript contains=@'.s:language.name
+    endif
+
+    " if function exists, call it
+    if (exists('*s:template_script_in_' . s:language.name))
+      execute 'call s:template_script_in_' . s:language.name . '()'
+    endif
   endif
 endfor
-
-syn region  vueSurroundingTag   contained start=+<\(script\|style\|template\)+ end=+>+ fold contains=htmlTagN,htmlString,htmlArg,htmlValue,htmlTagError,htmlEvent
-syn keyword htmlSpecialTagName  contained template
-syn keyword htmlArg             contained scoped ts
-syn match   htmlArg "[@v:][-:.0-9_a-z]*\>" contained
 
 syntax sync fromstart
 
 let b:current_syntax = "vue"
+
+" vim: et tw=80 sts=2 fdm=marker
